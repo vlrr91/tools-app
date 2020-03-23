@@ -1,0 +1,79 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="login-page ion-padding">
+    <div class="login-content" *ngIf="pageTexts">
+      <form novalidate class="login-form" [formGroup]="form" (ngSubmit)="emailAndPasswordLogin($event)">
+        <div class="form-field">
+          <ion-item>
+            <ion-label position="stacked">
+              {{emailText}}
+            </ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <div *ngIf="emailField.errors && emailField.touched">
+            <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('required')">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <span>{{requiredFieldErrorText}}</span>
+            </ion-text>
+            <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('pattern')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+                <span>{{emailInvalidErrorText}}</span>
+            </ion-text>
+          </div>
+        </div>
+        <div class="form-field">
+          <ion-item>
+            <ion-label position="stacked">{{passText}}</ion-label>
+            <ion-input type="password" formControlName="pass"></ion-input>
+          </ion-item>
+          <div *ngIf="passwordField.errors && passwordField.touched">
+            <ion-text class="form-error" color="danger" *ngIf="passwordField.hasError('required')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>{{requiredFieldErrorText}}</span>
+            </ion-text>
+            <ion-text class="form-error" color="danger" *ngIf="passwordField.hasError('minlength')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>{{passLengthErrorText}}</span>
+            </ion-text>
+          </div>
+        </div>
+        <ion-button 
+          type="submit" 
+          class="login-button"
+          expand="block"
+          fill="outline">{{loginButtonText}}</ion-button>
+        <ion-text class="form-error" color="danger" *ngIf="authService.errorMessage">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <span>{{authService.errorMessage}}</span>
+        </ion-text>
+      </form>
+
+      <ion-grid class="login-social">
+        <ion-row>
+          <ion-col class="social-item">
+            <ion-button (click)="facebookLogin()">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col class="social-item">
+            <ion-button (click)="googleLogin()">
+              <ion-icon name="logo-google"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <div class="login-register">
+        <ion-text class="register-text ion-text-center">
+          <h4>{{newHereText}} <span [routerLink]="['/register']">{{registerText}}</span></h4>
+        </ion-text>
+      </div>
+    </div>
+  </div>
+</ion-content>

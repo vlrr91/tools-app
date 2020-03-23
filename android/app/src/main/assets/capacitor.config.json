@@ -1,0 +1,18 @@
+{
+  "appId": "com.tools.app",
+  "appName": "Tools",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+  "plugins": {
+    "SplashScreen": {
+      "backgroundColor": "#000000"
+    }
+  },
+  "server": {
+    "url": "http://192.168.1.2:8100",
+    "cleartext": true
+  }
+}

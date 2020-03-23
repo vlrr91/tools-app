@@ -1,0 +1,29 @@
+.login-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-content {
+  width: 100%;
+  max-width: 400px;
+}
+.social-item:first-child {
+  display: flex;
+  justify-content: flex-end;
+}
+.login-button {
+  margin-top: 3rem;
+}
+.register-text {
+  h4 {
+    font-size: .8rem;
+  }
+  span {
+    text-decoration: underline;
+    color: #3880FF;
+    cursor: pointer;
+  }
+}
+
+ 

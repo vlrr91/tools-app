@@ -1,8 +1,14 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "tools-app",
+  "appId": "com.tools.app",
+  "appName": "Tools",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
-  "cordova": {}
+  "cordova": {},
+  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
+  "plugins": {
+    "SplashScreen": {
+      "backgroundColor": "#000000"
+    }
+  }
 }

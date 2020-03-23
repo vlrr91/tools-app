@@ -24,3 +24,32 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+.form-error {
+  font-size: small;
+  display: flex;
+  align-items: center;
+  padding: .3rem .8rem;
+
+  ion-icon {
+    margin-right: .1rem;
+  }
+}
+
+.email-verified {
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: .5rem;
+
+  ion-icon {
+    font-size: 2.5rem;
+  }
+}
+  
