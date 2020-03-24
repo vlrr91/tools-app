@@ -1,8 +1,9 @@
 import { Role } from '../shared/role';
 
 export interface User {
+  uid: string;
   displayName: string,
   photoURL?: string,
-  roles: Set<Role>,
+  roles: Array<Role>,
   selectedRole: string;
 }

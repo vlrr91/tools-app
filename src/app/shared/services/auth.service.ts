@@ -5,9 +5,11 @@ import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { DataStorageService } from './data-storage.service';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/user/user.service';
+import { User } from 'src/app/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,8 @@ export class AuthService {
     private gPlus: GooglePlus,
     private facebook: Facebook,
     private navCtrl: NavController,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private userService: UserService
   ) {
     this.user = this.afAuth.authState;
   }
@@ -46,8 +49,10 @@ export class AuthService {
       const firebaseUser = await this.afAuth.auth.signInWithCredential(
         firebase.auth.GoogleAuthProvider.credential(gPlusUser.idToken)
       );
-      const user = await this.dataStorageService.saveUser(firebaseUser.user);
-      this.navCtrl.navigateRoot(`${user.selectedRole}`);
+      const sub = this.userService.getUser(firebaseUser.user.uid)
+        .subscribe(
+          async u => await this.validateUserFirestore(u, firebaseUser.user, sub)
+        );
     } catch(err) {
       console.error(`${AuthService.TAG}/nativeGoogleLogin: ${err}`);
     }
@@ -57,8 +62,10 @@ export class AuthService {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
       const firebaseUser = await this.afAuth.auth.signInWithPopup(provider);
-      const user = await this.dataStorageService.saveUser(firebaseUser.user);
-      this.navCtrl.navigateRoot(`${user.selectedRole}`);
+      const sub = this.userService.getUser(firebaseUser.user.uid)
+        .subscribe(
+          async u => await this.validateUserFirestore(u, firebaseUser.user, sub) 
+        );
     } catch(err) {
       console.error(`${AuthService.TAG}/webGoogleLogin: ${err}`);
     }
@@ -78,8 +85,10 @@ export class AuthService {
       const firebaseUser = await this.afAuth.auth.signInWithCredential(
         firebase.auth.FacebookAuthProvider.credential(facebookUser.authResponse.accessToken)
       );
-      const user = await this.dataStorageService.saveUser(firebaseUser.user);
-      this.navCtrl.navigateRoot(`${user.selectedRole}`);
+      const sub = this.userService.getUser(firebaseUser.user.uid)
+      .subscribe(
+        async u => await this.validateUserFirestore(u, firebaseUser.user, sub)
+      );
     } catch(err) {
       console.error(`${AuthService.TAG}/nativeFacebookLogin: ${err}`);
     }
@@ -89,8 +98,10 @@ export class AuthService {
     try {
       const provider = new firebase.auth.FacebookAuthProvider();
       const firebaseUser = await this.afAuth.auth.signInWithPopup(provider);
-      const user = await this.dataStorageService.saveUser(firebaseUser.user);
-      this.navCtrl.navigateRoot(`${user.selectedRole}`);
+      const sub = this.userService.getUser(firebaseUser.user.uid)
+        .subscribe(
+          async u => await this.validateUserFirestore(u, firebaseUser.user, sub)
+        );
     } catch(err) {
       console.error(`${AuthService.TAG}/webFacebookLogin: ${err}`);
     }
@@ -99,8 +110,14 @@ export class AuthService {
   async emailAndPasswordLogin(email: string, password: string) {
     try {
       const firebaseUser = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
-      const user = await this.dataStorageService.saveUser(firebaseUser.user);
-      this.navCtrl.navigateRoot(`${user.selectedRole}`);
+      const sub = this.userService.getUser(firebaseUser.user.uid)
+        .subscribe(
+          async u => {
+            await this.dataStorageService.saveUser(u);
+            sub.unsubscribe();
+            this.navCtrl.navigateRoot(`/${u.selectedRole}`);
+          }
+        );
     } catch(err) {
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
         const texts = await this.dataStorageService.getTextsApplication();
@@ -120,8 +137,13 @@ export class AuthService {
       const subscription = this.user.subscribe(async firebaseUser => {
         if (firebaseUser) {
           const displayName = `${firstName.toLowerCase().trim()} ${lastName.toLowerCase().trim()}`;
-          firebaseUser.updateProfile({ displayName  });
-          const user = await this.dataStorageService.saveUser({ displayName } as firebase.User);
+          await firebaseUser.updateProfile({ displayName  });
+          const { uid, photoURL } = firebaseUser;
+          const user = await this.userService.saveUser({
+            uid,
+            displayName,
+            photoURL,
+          } as firebase.User);
           await firebaseUser.sendEmailVerification();
           subscription.unsubscribe();
           this.navCtrl.navigateRoot(`/${user.selectedRole}`);
@@ -142,8 +164,31 @@ export class AuthService {
   async logout(): Promise<void> {
     try {
       await this.afAuth.auth.signOut();
+      this.navCtrl.navigateRoot('/login');
     } catch(err) {
       console.error(`${AuthService.TAG}/logout: ${err}`);
+    }
+  }
+
+  private async validateUserFirestore(u: User, firebaseUser: firebase.User, sub: Subscription) {
+    if (u) {
+      await this.dataStorageService.saveUser(u);
+      sub.unsubscribe();
+      this.navCtrl.navigateRoot(`/${u.selectedRole}`);
+    } else {
+      const {
+        uid,
+        displayName,
+        photoURL
+      } = firebaseUser;
+      const user = await this.userService.saveUser({ 
+        uid,
+        displayName,
+        photoURL 
+      } as firebase.User);
+      await this.dataStorageService.saveUser(user);
+      sub.unsubscribe();
+      this.navCtrl.navigateRoot(`/${user.selectedRole}`);
     }
   }
 }

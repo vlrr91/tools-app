@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from 'src/app/shared/services/auth.service';
+
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.page.html',
@@ -7,12 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerPage implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+
   }
 
   signOut(): void {
-    //this.loginService.signOut();
+    this.authService.logout();
   }
 }
