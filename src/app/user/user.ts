@@ -1,4 +1,4 @@
-import { Role } from '../shared/role';
+import { Role } from '../shared/enums';
 
 export interface User {
   uid: string;
@@ -6,4 +6,5 @@ export interface User {
   photoURL?: string,
   roles: Array<Role>,
   selectedRole: string;
+  provider: string;
 }

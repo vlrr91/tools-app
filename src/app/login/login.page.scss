@@ -15,15 +15,13 @@
 .login-button {
   margin-top: 3rem;
 }
-.register-text {
-  h4 {
+.register-text h4 {
     font-size: .8rem;
-  }
-  span {
-    text-decoration: underline;
+}
+.forgot-text,
+.register-text span {
+  text-decoration: underline;
     color: #3880FF;
     cursor: pointer;
-  }
-}
-
- 
+    font-size: .8rem;
+} 

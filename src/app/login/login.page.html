@@ -53,6 +53,12 @@
           <span>{{authService.errorMessage}}</span>
         </ion-text>
       </form>
+      
+      <div class="login-forgot">
+        <ion-text class="forgot-text ion-text-center" color="primary">
+          <p (click)="presentModal()">{{forgotPassText}}</p>
+        </ion-text>
+      </div>
 
       <ion-grid class="login-social">
         <ion-row>

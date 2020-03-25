@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 
 import * as firebase from 'firebase/app';
 import { User } from './user';
-import { Role } from 'src/app/shared/role';
+import { Role } from 'src/app/shared/enums';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Observable } from 'rxjs';
 
@@ -21,14 +21,15 @@ export class UserService {
 
   }
 
-  async saveUser(user: firebase.User | User): Promise<User> {
+  async saveUser(user: firebase.User, provider: string): Promise<User> {
     const { uid, displayName, photoURL } = user;
     const newUser: User = {
       uid,
       displayName,
       photoURL,
       roles: [Role.Customer],
-      selectedRole: Role.Customer
+      selectedRole: Role.Customer,
+      provider,
     }
     await this.usersCollection.doc(uid).set(newUser);
     await this.dataStorage.saveUser(newUser);

@@ -10,6 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/user/user.service';
 import { User } from 'src/app/user/user';
+import { Provider } from '../enums';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +52,7 @@ export class AuthService {
       );
       const sub = this.userService.getUser(firebaseUser.user.uid)
         .subscribe(
-          async u => await this.validateUserFirestore(u, firebaseUser.user, sub)
+          async u => await this.validateUserFirestore(u, firebaseUser.user, sub, Provider.Google)
         );
     } catch(err) {
       console.error(`${AuthService.TAG}/nativeGoogleLogin: ${err}`);
@@ -64,7 +65,7 @@ export class AuthService {
       const firebaseUser = await this.afAuth.auth.signInWithPopup(provider);
       const sub = this.userService.getUser(firebaseUser.user.uid)
         .subscribe(
-          async u => await this.validateUserFirestore(u, firebaseUser.user, sub) 
+          async u => await this.validateUserFirestore(u, firebaseUser.user, sub, Provider.Google) 
         );
     } catch(err) {
       console.error(`${AuthService.TAG}/webGoogleLogin: ${err}`);
@@ -87,7 +88,7 @@ export class AuthService {
       );
       const sub = this.userService.getUser(firebaseUser.user.uid)
       .subscribe(
-        async u => await this.validateUserFirestore(u, firebaseUser.user, sub)
+        async u => await this.validateUserFirestore(u, firebaseUser.user, sub, Provider.Facebook)
       );
     } catch(err) {
       console.error(`${AuthService.TAG}/nativeFacebookLogin: ${err}`);
@@ -100,7 +101,7 @@ export class AuthService {
       const firebaseUser = await this.afAuth.auth.signInWithPopup(provider);
       const sub = this.userService.getUser(firebaseUser.user.uid)
         .subscribe(
-          async u => await this.validateUserFirestore(u, firebaseUser.user, sub)
+          async u => await this.validateUserFirestore(u, firebaseUser.user, sub, Provider.Facebook)
         );
     } catch(err) {
       console.error(`${AuthService.TAG}/webFacebookLogin: ${err}`);
@@ -143,8 +144,8 @@ export class AuthService {
             uid,
             displayName,
             photoURL,
-          } as firebase.User);
-          await firebaseUser.sendEmailVerification();
+          } as firebase.User, Provider.Email);
+          //await firebaseUser.sendEmailVerification();
           subscription.unsubscribe();
           this.navCtrl.navigateRoot(`/${user.selectedRole}`);
         } else {
@@ -163,14 +164,23 @@ export class AuthService {
 
   async logout(): Promise<void> {
     try {
+      const user = await this.dataStorageService.getUser();
       await this.afAuth.auth.signOut();
+      if (this.platform.is('hybrid')) {
+        if (user.provider === Provider.Google) {
+          this.gPlus.logout();
+        } 
+        if (user.provider === Provider.Facebook) {
+          this.facebook.logout();
+        }
+      }
       this.navCtrl.navigateRoot('/login');
     } catch(err) {
       console.error(`${AuthService.TAG}/logout: ${err}`);
     }
   }
 
-  private async validateUserFirestore(u: User, firebaseUser: firebase.User, sub: Subscription) {
+  private async validateUserFirestore(u: User, firebaseUser: firebase.User, sub: Subscription, provider: string) {
     if (u) {
       await this.dataStorageService.saveUser(u);
       sub.unsubscribe();
@@ -184,8 +194,8 @@ export class AuthService {
       const user = await this.userService.saveUser({ 
         uid,
         displayName,
-        photoURL 
-      } as firebase.User);
+        photoURL,
+      } as firebase.User, provider);
       await this.dataStorageService.saveUser(user);
       sub.unsubscribe();
       this.navCtrl.navigateRoot(`/${user.selectedRole}`);

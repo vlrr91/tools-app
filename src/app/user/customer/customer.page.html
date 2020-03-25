@@ -4,8 +4,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button (click)="signOut()">
-    sign out
-  </ion-button>
+<ion-content class="ion-padding">
+  <div class="pageContent" *ngIf="pageTexts">
+    <ion-button (click)="signOut()">
+      sign out
+    </ion-button>
+
+    <div class="email-verified" *ngIf="!emailVerified">
+      <ion-text *ngIf="sendEmail">
+        <span>{{msgSendText}}</span>
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+      </ion-text>
+      <ion-text *ngIf="!sendEmail">
+        <span>{{msgValidateText}}</span>
+        <ion-icon name="mail-outline"></ion-icon>
+      </ion-text>
+      <div class="email-verified-buttons">
+        <ion-button class="email-verified-btn" (click)="sendVerificationEmail()">
+          {{sendMsgBtnText}}
+        </ion-button>
+        <ion-button (click)="refresh()">
+          {{refreshBtnText}}
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

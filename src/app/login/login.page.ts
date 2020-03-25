@@ -1,19 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-//import { Plugins } from "@capacitor/core";
+import { ModalController } from "@ionic/angular";
+import { ForgotPassModalComponent } from "./components/forgot-pass-modal";
+
 import { AuthService } from '../shared/services/auth.service';
 import { DataStorageService } from '../shared/services/data-storage.service';
 
 const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//const { Storage } = Plugins;
-
-// Plugins.App.addListener('backButton', async () => {
-//   const data = await Storage.get({ 'key': 'user' });
-//   const storageUser = JSON.parse(data.value);
-//   if (storageUser) {
-//     Plugins.App.exitApp();
-//   }
-// });
 
 @Component({
   selector: 'app-login',
@@ -31,11 +24,16 @@ export class LoginPage implements OnInit {
   requiredFieldErrorText: string;
   emailInvalidErrorText: string;
   passLengthErrorText: string;
+  forgotPassText: string;
+  modalCloseBtnText: string;
+  modalTitle: string;
+  modalSendBtnText: string;
 
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    public modalCtrl: ModalController
   ) {
     this.buildForm();
   }
@@ -49,11 +47,15 @@ export class LoginPage implements OnInit {
         this.loginButtonText = this.pageTexts.loginButton;
         this.newHereText = this.pageTexts.newHere;
         this.registerText = this.pageTexts.register;
+        this.forgotPassText = this.pageTexts.forgotPass;
 
         const formText = texts.formMessages;
         this.requiredFieldErrorText = formText.requiredField;
         this.emailInvalidErrorText = formText.emailInvalid;
         this.passLengthErrorText = formText.passLength;
+        this.modalTitle = formText.resetPass;
+        this.modalCloseBtnText = formText.closeButton;
+        this.modalSendBtnText = formText.sendButton;
       }
     );
   }
@@ -89,5 +91,20 @@ export class LoginPage implements OnInit {
 
   get passwordField(): AbstractControl {
     return this.form.get('pass');
+  }
+
+  async presentModal() {
+    const modal = await this.modalCtrl.create({
+      component: ForgotPassModalComponent,
+      componentProps: {
+        'modalTitle': this.modalTitle,
+        'modalCloseBtnText': this.modalCloseBtnText,
+        'modalSendBtnText': this.modalSendBtnText,
+        'emailText': this.emailText,
+        'emailInvalidErrorText': this.emailInvalidErrorText,
+        'requiredFieldErrorText': this.requiredFieldErrorText,
+      }
+    });
+    return modal.present();
   }
 }
