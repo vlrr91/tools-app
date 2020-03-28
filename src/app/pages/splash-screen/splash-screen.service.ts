@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireRemoteConfig } from '@angular/fire/remote-config';
 
-import { DataStorageService } from '../shared/services/data-storage.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
 
 @Injectable({
   providedIn: 'root'

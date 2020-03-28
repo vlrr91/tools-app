@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-import { User } from 'src/app/user/user';
+import { User } from 'src/app/pages/user/user';
 
 const { Storage } = Plugins;
 

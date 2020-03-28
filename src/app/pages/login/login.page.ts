@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { ModalController } from "@ionic/angular";
 import { ForgotPassModalComponent } from "./components/forgot-pass-modal";
 
-import { AuthService } from '../shared/services/auth.service';
-import { DataStorageService } from '../shared/services/data-storage.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
 
 const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
   modalCloseBtnText: string;
   modalTitle: string;
   modalSendBtnText: string;
+  messageSendText: string;
 
   constructor(
     public authService: AuthService,
@@ -56,6 +57,7 @@ export class LoginPage implements OnInit {
         this.modalTitle = formText.resetPass;
         this.modalCloseBtnText = formText.closeButton;
         this.modalSendBtnText = formText.sendButton;
+        this.messageSendText = formText.messageSend;
       }
     );
   }
@@ -103,6 +105,7 @@ export class LoginPage implements OnInit {
         'emailText': this.emailText,
         'emailInvalidErrorText': this.emailInvalidErrorText,
         'requiredFieldErrorText': this.requiredFieldErrorText,
+        'messageSendText': this.messageSendText
       }
     });
     return modal.present();

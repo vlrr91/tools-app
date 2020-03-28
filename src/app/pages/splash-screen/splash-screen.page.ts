@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 import { SplashScreenService } from './splash-screen.service';
-import { AuthService } from '../shared/services/auth.service';
-import { DataStorageService } from '../shared/services/data-storage.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { DataStorageService } from '../../shared/services/data-storage.service';
 import { Subscription } from 'rxjs';
 
 @Component({

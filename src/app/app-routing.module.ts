@@ -5,22 +5,22 @@ const routes: Routes = [
   { path: '', redirectTo: 'splash-screen', pathMatch: 'full' },
   { 
     path: 'login', 
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)},
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)},
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'customer',
-    loadChildren: () => import('./user/customer/customer.module').then( m => m.CustomerPageModule)
+    loadChildren: () => import('./pages/user/customer/customer.module').then( m => m.CustomerPageModule)
   },
   {
     path: 'ally',
-    loadChildren: () => import('./user/ally/ally.module').then( m => m.AllyPageModule)
+    loadChildren: () => import('./pages/user/ally/ally.module').then( m => m.AllyPageModule)
   },
   {
     path: 'splash-screen',
-    loadChildren: () => import('./splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
+    loadChildren: () => import('./pages/splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
   },
 ];
 

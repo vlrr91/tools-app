@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Platform, NavController  } from "@ionic/angular";
+import { Platform, NavController } from "@ionic/angular";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
@@ -8,8 +8,8 @@ import * as firebase from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { UserService } from 'src/app/user/user.service';
-import { User } from 'src/app/user/user';
+import { UserService } from 'src/app/pages/user/user.service';
+import { User } from 'src/app/pages/user/user';
 import { Provider } from '../enums';
 
 @Injectable({
@@ -199,6 +199,14 @@ export class AuthService {
       await this.dataStorageService.saveUser(user);
       sub.unsubscribe();
       this.navCtrl.navigateRoot(`/${user.selectedRole}`);
+    }
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    try {
+      await this.afAuth.auth.sendPasswordResetEmail(email);
+    } catch(err) {
+      console.error(`${AuthService.TAG}/forgotPassword: ${err}`);
     }
   }
 }
