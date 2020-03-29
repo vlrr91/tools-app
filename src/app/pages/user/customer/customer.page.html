@@ -1,16 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>customer</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs>
 
-<ion-content class="ion-padding">
-  <div class="pageContent" *ngIf="pageTexts">
-    <ion-button (click)="signOut()">
-      sign out
-    </ion-button>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="map">
+      <ion-icon name="map-outline"></ion-icon>
+      <ion-label>Map</ion-label>
+    </ion-tab-button>
 
-    <div class="email-verified" *ngIf="!emailVerified">
+    <ion-tab-button tab="chat">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+      <ion-label>Chat</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+
+</ion-tabs>
+<ion-content class="ion-padding" *ngIf="pageTexts && !emailVerified">
+  <div class="pageContent" >
+    <div class="email-verified">
       <ion-text *ngIf="sendEmail">
         <span>{{msgSendText}}</span>
         <ion-icon name="checkmark-circle-outline"></ion-icon>

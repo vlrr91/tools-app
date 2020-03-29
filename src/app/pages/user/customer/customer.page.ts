@@ -30,7 +30,6 @@ export class CustomerPage implements OnInit {
     }
     this.dataStorageService.getTextsApplication().then(
       texts => {
-        console.log(texts.customerPage.messageValidate)
         this.pageTexts = texts.customerPage;
         this.msgValidateText = this.pageTexts.messageValidate;
         this.sendMsgBtnText = this.pageTexts.sendMessageButton;
@@ -59,6 +58,7 @@ export class CustomerPage implements OnInit {
       .subscribe(
         u => {
           this.emailVerified = u.emailVerified;
+          console.log(this.emailVerified)
           sub.unsubscribe();
         }
       );
