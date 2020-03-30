@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { Provider } from 'src/app/interfaces/enums';
+import { Provider } from 'src/app/interfaces/enums'; 
 
 @Component({
   selector: 'app-customer',
@@ -36,11 +36,7 @@ export class CustomerPage implements OnInit {
         this.refreshBtnText = this.pageTexts.refreshButton;
         this.msgSendText = this.pageTexts.messageSend;
       }
-    )
-  }
-
-  signOut(): void {
-    this.authService.logout();
+    );
   }
 
   sendVerificationEmail() {

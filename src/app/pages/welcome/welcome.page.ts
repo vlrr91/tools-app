@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides, NavController } from "@ionic/angular";
+import { IonSlides, NavController, MenuController } from "@ionic/angular";
 import { Plugins } from '@capacitor/core';
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
@@ -19,8 +19,9 @@ export class WelcomePage implements OnInit {
 
   constructor(
     private appLanguage: AppLanguageService,
-    private navCtrl: NavController) {
-  }
+    private navCtrl: NavController,
+    private menu: MenuController
+  ) {}
 
   async ngOnInit() {
     this.pageTexts = await this.appLanguage.getPageTexts('welcomePage');
@@ -35,5 +36,13 @@ export class WelcomePage implements OnInit {
     event.target.isEnd().then((isEnd: Boolean) => {
       this.showSkip = !isEnd
     })
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.enable(true);
   }
 }

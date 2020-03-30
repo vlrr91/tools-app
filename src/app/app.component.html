@@ -1,3 +1,64 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-menu side="start" contentId="main" *ngIf="menuTexts">
+      <ion-content>
+        <ion-list lines="none" *ngIf="isAlly">
+          <ion-list-header>
+            {{menuTexts.menu}}
+          </ion-list-header>
+          <ion-menu-toggle autoHide="false">
+            <ion-item>
+              <ion-icon slot="start" name="home-outline"></ion-icon>
+              <ion-label>{{menuTexts.store}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item>
+              <ion-icon slot="start" name="construct-outline"></ion-icon>
+              <ion-label>{{menuTexts.products}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list lines="none" *ngIf="!isAlly">
+          <ion-list-header>
+            {{menuTexts.menu}}
+          </ion-list-header>
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/customer/tabs/map" routerLinkActive="selected" routerDirection="root"> 
+              <ion-icon slot="start" name="home-outline"></ion-icon>
+              <ion-label>{{menuTexts.map}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/customer/tabs/chats" routerLinkActive="selected" routerDirection="root">
+              <ion-icon slot="start" name="chatbox-ellipses-outline"></ion-icon>
+              <ion-label>{{menuTexts.chats}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+        <ion-list lines="none">
+          <ion-list-header>
+            Account
+          </ion-list-header>
+          <ion-menu-toggle autoHide="false">
+            <ion-item>
+              <ion-icon slot="start" name="person-outline"></ion-icon>
+              <ion-label>{{menuTexts.profile}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item>
+              <ion-icon slot="start" name="people-outline"></ion-icon>
+              <ion-label>{{menuTexts.becomeAlly}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          <ion-item (click)="signOut()">
+            <ion-icon slot="start" name="log-out-outline"></ion-icon>
+            <ion-label>{{menuTexts.signOut}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

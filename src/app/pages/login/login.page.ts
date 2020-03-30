@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { ModalController } from "@ionic/angular";
+import { ModalController, MenuController } from "@ionic/angular";
 import { ForgotPassModalComponent } from "../forgot-pass-modal/forgot-pass-modal";
 
 import { AuthService } from '../../shared/services/auth.service';
@@ -22,7 +22,8 @@ export class LoginPage implements OnInit {
     public authService: AuthService,
     private formBuilder: FormBuilder,
     private appLanguage: AppLanguageService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private menu: MenuController
   ) {
     this.buildForm();
   }
@@ -79,5 +80,13 @@ export class LoginPage implements OnInit {
       }
     });
     return modal.present();
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.enable(true);
   }
 }

@@ -1,19 +1,17 @@
 <ion-tabs>
-
   <ion-tab-bar slot="bottom">
     <ion-tab-button tab="map">
       <ion-icon name="map-outline"></ion-icon>
       <ion-label>Map</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="chat">
+    <ion-tab-button tab="chats">
       <ion-icon name="chatbox-ellipses-outline"></ion-icon>
       <ion-label>Chat</ion-label>
     </ion-tab-button>
-
   </ion-tab-bar>
-
 </ion-tabs>
+
 <ion-content class="ion-padding" *ngIf="pageTexts && !emailVerified">
   <div class="pageContent" >
     <div class="email-verified">

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, MenuController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
@@ -18,7 +18,8 @@ export class SplashScreenPage implements OnInit {
     private navCtrl: NavController,
     private appLanguageService: AppLanguageService,
     private authService: AuthService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private menu: MenuController
   ) { }
 
   async ngOnInit() {
@@ -45,5 +46,13 @@ export class SplashScreenPage implements OnInit {
         }
       );
     }
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.enable(true);
   }
 }
