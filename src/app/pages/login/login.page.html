@@ -7,39 +7,39 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="login-page ion-padding">
-    <div class="login-content" *ngIf="pageTexts">
+    <div class="login-content" *ngIf="pageTexts && formMessages">
       <form novalidate class="login-form" [formGroup]="form" (ngSubmit)="emailAndPasswordLogin($event)">
         <div class="form-field">
           <ion-item>
             <ion-label position="stacked">
-              {{emailText}}
+              {{pageTexts.email}}
             </ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
           <div *ngIf="emailField.errors && emailField.touched">
             <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{requiredFieldErrorText}}</span>
+                <span>{{formMessages.requiredField}}</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('pattern')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{emailInvalidErrorText}}</span>
+                <span>{{formMessages.emailInvalid}}</span>
             </ion-text>
           </div>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{passText}}</ion-label>
+            <ion-label position="stacked">{{pageTexts.pass}}</ion-label>
             <ion-input type="password" formControlName="pass"></ion-input>
           </ion-item>
           <div *ngIf="passwordField.errors && passwordField.touched">
             <ion-text class="form-error" color="danger" *ngIf="passwordField.hasError('required')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{requiredFieldErrorText}}</span>
+              <span>{{formMessages.requiredField}}</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="passwordField.hasError('minlength')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{passLengthErrorText}}</span>
+              <span>{{formMessages.passLength}}</span>
             </ion-text>
           </div>
         </div>
@@ -47,7 +47,7 @@
           type="submit" 
           class="login-button"
           expand="block"
-          fill="outline">{{loginButtonText}}</ion-button>
+          fill="outline">{{pageTexts.loginButton}}</ion-button>
         <ion-text class="form-error" color="danger" *ngIf="authService.errorMessage">
           <ion-icon name="alert-circle-outline"></ion-icon>
           <span>{{authService.errorMessage}}</span>
@@ -56,7 +56,7 @@
       
       <div class="login-forgot">
         <ion-text class="forgot-text ion-text-center" color="primary">
-          <p (click)="presentModal()">{{forgotPassText}}</p>
+          <p (click)="presentModal()">{{pageTexts.forgotPass}}</p>
         </ion-text>
       </div>
 
@@ -77,7 +77,7 @@
 
       <div class="login-register">
         <ion-text class="register-text ion-text-center">
-          <h4>{{newHereText}} <span [routerLink]="['/register']">{{registerText}}</span></h4>
+          <h4>{{pageTexts.newHere}} <span [routerLink]="['/register']">{{pageTexts.register}}</span></h4>
         </ion-text>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ModalController } from "@ionic/angular";
-import { ForgotPassModalComponent } from "./components/forgot-pass-modal";
+import { ForgotPassModalComponent } from "../forgot-pass-modal/forgot-pass-modal";
 
 import { AuthService } from '../../shared/services/auth.service';
-import { DataStorageService } from '../../shared/services/data-storage.service';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -16,50 +16,20 @@ const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*
 export class LoginPage implements OnInit {
   form: FormGroup;
   pageTexts: any;
-  emailText: string;
-  passText: string;
-  loginButtonText: string;
-  newHereText: string;
-  registerText: string;
-  requiredFieldErrorText: string;
-  emailInvalidErrorText: string;
-  passLengthErrorText: string;
-  forgotPassText: string;
-  modalCloseBtnText: string;
-  modalTitle: string;
-  modalSendBtnText: string;
-  messageSendText: string;
-
+  formMessages: any;
+  
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
-    private dataStorageService: DataStorageService,
+    private appLanguage: AppLanguageService,
     public modalCtrl: ModalController
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {
-    this.dataStorageService.getTextsApplication().then(
-      texts => {
-        this.pageTexts = texts.loginPage;
-        this.emailText = this.pageTexts.email;
-        this.passText = this.pageTexts.pass;
-        this.loginButtonText = this.pageTexts.loginButton;
-        this.newHereText = this.pageTexts.newHere;
-        this.registerText = this.pageTexts.register;
-        this.forgotPassText = this.pageTexts.forgotPass;
-
-        const formText = texts.formMessages;
-        this.requiredFieldErrorText = formText.requiredField;
-        this.emailInvalidErrorText = formText.emailInvalid;
-        this.passLengthErrorText = formText.passLength;
-        this.modalTitle = formText.resetPass;
-        this.modalCloseBtnText = formText.closeButton;
-        this.modalSendBtnText = formText.sendButton;
-        this.messageSendText = formText.messageSend;
-      }
-    );
+  async ngOnInit(): Promise<void> {
+    this.pageTexts = await this.appLanguage.getPageTexts('loginPage');
+    this.formMessages = await this.appLanguage.getPageTexts('formMessages');
   }
 
   emailAndPasswordLogin(event: Event): void {
@@ -99,13 +69,13 @@ export class LoginPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ForgotPassModalComponent,
       componentProps: {
-        'modalTitle': this.modalTitle,
-        'modalCloseBtnText': this.modalCloseBtnText,
-        'modalSendBtnText': this.modalSendBtnText,
-        'emailText': this.emailText,
-        'emailInvalidErrorText': this.emailInvalidErrorText,
-        'requiredFieldErrorText': this.requiredFieldErrorText,
-        'messageSendText': this.messageSendText
+        'modalTitle': this.formMessages.resetPass,
+        'modalCloseBtnText': this.formMessages.closeButton,
+        'modalSendBtnText': this.formMessages.sendButton,
+        'emailText': this.pageTexts.emailText,
+        'emailInvalidErrorText': this.formMessages.emailInvalid,
+        'requiredFieldErrorText': this.formMessages.requiredField,
+        'messageSendText': this.formMessages.messageSend
       }
     });
     return modal.present();

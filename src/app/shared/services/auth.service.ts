@@ -8,9 +8,9 @@ import * as firebase from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { UserService } from 'src/app/pages/user/user.service';
-import { User } from 'src/app/pages/user/user';
-import { Provider } from '../enums';
+import { UserService } from 'src/app/shared/services/user-firestore.service';
+import { User } from 'src/app/interfaces/user';
+import { Provider } from '../../interfaces/enums';
 
 @Injectable({
   providedIn: 'root'

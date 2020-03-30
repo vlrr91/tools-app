@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { NavParams, ModalController, AlertController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -7,7 +7,7 @@ const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*
 
 @Component({
   selector: 'app-pass-modal',
-  templateUrl: './forgot-pass-modal.component.html'
+  templateUrl: './forgot-pass-modal.html'
 })
 export class ForgotPassModalComponent {
   formModal: FormGroup;

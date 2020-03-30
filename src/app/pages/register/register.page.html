@@ -8,61 +8,61 @@
 
 <ion-content [fullscreen]="true">
   <div class="register-page ion-padding">
-    <div class="register-content" *ngIf="pageTexts">
+    <div class="register-content" *ngIf="pageTexts && formMessages">
       <form novalidate class="register-form" [formGroup]="form">
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{firstNameText}}</ion-label>
+            <ion-label position="stacked">{{pageTexts.firstName}}</ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="firstName"></ion-input>
           </ion-item>
           <div *ngIf="firstNameField.errors && firstNameField.touched">
             <ion-text class="form-error" color="danger" *ngIf="firstNameField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{requiredFieldErrorText}}</span>
+                <span>{{formMessages.requiredField}}</span>
             </ion-text>
           </div>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{lastNameText}}</ion-label>
+            <ion-label position="stacked">{{pageTexts.lastName}}</ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="lastName"></ion-input>
           </ion-item>
           <div *ngIf="lastNameField.errors && lastNameField.touched">
             <ion-text class="form-error" color="danger" *ngIf="lastNameField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{requiredFieldErrorText}}</span>
+                <span>{{formMessages.requiredField}}</span>
             </ion-text>
           </div>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{emailText}}</ion-label>
+            <ion-label position="stacked">{{pageTexts.email}}</ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
           <div *ngIf="emailField.errors && emailField.touched">
             <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{requiredFieldErrorText}}</span>
+                <span>{{formMessages.requiredField}}</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('pattern')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{emailInvalidErrorText}}</span>
+              <span>{{formMessages.emailInvalid}}</span>
             </ion-text>
           </div>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{passText}}</ion-label>
+            <ion-label position="stacked">{{pageTexts.pass}}</ion-label>
             <ion-input type="password" formControlName="pass"></ion-input>
           </ion-item>
           <div *ngIf="passField.errors && passField.touched">
             <ion-text class="form-error" color="danger" *ngIf="passField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{requiredFieldErrorText}}</span>
+                <span>{{formMessages.requiredField}}</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="passField.hasError('minlength')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{passLengthErrorText}}</span>
+              <span>{{formMessages.passLength}}</span>
             </ion-text>
           </div>
         </div>
@@ -70,7 +70,7 @@
           (click)="createUser()"
           class="register-button" 
           expand="block" 
-          fill="outline">{{registerButtonText}}</ion-button>
+          fill="outline">{{pageTexts.registerButton}}</ion-button>
           <ion-text class="form-error" color="danger" *ngIf="authService.errorMessage">
             <ion-icon name="alert-circle-outline"></ion-icon>
             <span>{{authService.errorMessage}}</span>

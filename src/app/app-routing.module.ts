@@ -12,15 +12,19 @@ const routes: Routes = [
   },
   {
     path: 'customer',
-    loadChildren: () => import('./pages/user/customer/customer.module').then( m => m.CustomerPageModule)
+    loadChildren: () => import('./pages/customer/customer.module').then( m => m.CustomerPageModule)
   },
   {
     path: 'ally',
-    loadChildren: () => import('./pages/user/ally/ally.module').then( m => m.AllyPageModule)
+    loadChildren: () => import('./pages/ally/ally.module').then( m => m.AllyPageModule)
   },
   {
     path: 'splash-screen',
     loadChildren: () => import('./pages/splash-screen/splash-screen.module').then( m => m.SplashScreenPageModule)
+  },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
   },
 ];
 

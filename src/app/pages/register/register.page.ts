@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+
 import { AuthService } from '../../shared/services/auth.service';
-import { DataStorageService } from '../../shared/services/data-storage.service';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -13,39 +14,19 @@ const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*
 export class RegisterPage implements OnInit {
   form: FormGroup;
   pageTexts: any;
-  firstNameText: string;
-  lastNameText: string;
-  emailText: string;
-  passText: string;
-  registerButtonText: string;
-  requiredFieldErrorText: string;
-  emailInvalidErrorText: string;
-  passLengthErrorText: string;
+  formMessages: any;
 
   constructor(
     private formBuilder: FormBuilder,
     public authService: AuthService,
-    private dataStorageService: DataStorageService
+    private appLanguageService: AppLanguageService
   ) {
     this.buildForm();
   }
 
-  ngOnInit(): void {
-    this.dataStorageService.getTextsApplication().then(
-      texts => {
-        this.pageTexts = texts.registerPage;
-        this.firstNameText = this.pageTexts.firstName;
-        this.lastNameText = this.pageTexts.lastName;
-        this.emailText = this.pageTexts.email;
-        this.passText = this.pageTexts.pass;
-        this.registerButtonText = this.pageTexts.registerButton;
-
-        const formTexts = texts.formMessages;
-        this.requiredFieldErrorText = formTexts.requiredField;
-        this.emailInvalidErrorText = formTexts.emailInvalid;
-        this.passLengthErrorText = formTexts.passLength;
-      }
-    )
+  async ngOnInit(): Promise<void> {
+    this.pageTexts = await this.appLanguageService.getPageTexts('registerPage');
+    this.formMessages = await this.appLanguageService.getPageTexts('formMessages');
   }
 
   createUser() {

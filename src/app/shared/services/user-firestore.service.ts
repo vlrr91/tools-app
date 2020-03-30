@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
 
 import * as firebase from 'firebase/app';
-import { User } from './user';
-import { Role } from 'src/app/shared/enums';
+import { User } from '../../interfaces/user';
+import { Role } from 'src/app/interfaces/enums';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Observable } from 'rxjs';
 

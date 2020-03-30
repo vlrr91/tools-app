@@ -1,0 +1,25 @@
+ion-slides {
+  height: 100%;
+
+  ion-slide {
+    flex-direction: column;
+    padding: 0 2rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--ion-color-primary-shade);
+      margin-bottom: 2rem;
+    }
+
+    p {
+      color: var(--ion-color-primary);
+    }
+
+    .slide3 {
+      width: 200px;
+      border-radius: 50%;
+    }
+  }
+}

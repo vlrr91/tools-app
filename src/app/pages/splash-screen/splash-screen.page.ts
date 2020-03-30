@@ -1,47 +1,49 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
 
-import { SplashScreenService } from './splash-screen.service';
-import { AuthService } from '../../shared/services/auth.service';
-import { DataStorageService } from '../../shared/services/data-storage.service';
-import { Subscription } from 'rxjs';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+
+const { Storage } = Plugins;
 
 @Component({
   selector: 'app-splash-screen',
   templateUrl: './splash-screen.page.html',
   styleUrls: ['./splash-screen.page.scss'],
 })
-export class SplashScreenPage implements OnInit, OnDestroy {
-  subscription: Subscription;
-  isLoading = true;
-
+export class SplashScreenPage implements OnInit {
   constructor(
-    private authService: AuthService,
-    private splashScreenService: SplashScreenService,
     private navCtrl: NavController,
+    private appLanguageService: AppLanguageService,
+    private authService: AuthService,
     private dataStorageService: DataStorageService
   ) { }
 
   async ngOnInit() {
-    await this.splashScreenService.loadingComplete();
- 
-    this.subscription = this.authService.user.subscribe(
-      async firebaseUser => {
-        if (!firebaseUser) {
+    // Load and save application texts
+    await this.appLanguageService.saveAppTexts();
+    // Navigation to the next page
+    const didWelcome = await Storage.get({ key: 'didWelcome' });
+    if (didWelcome.value !== 'true') {
+      this.navCtrl.navigateRoot('/welcome');
+    } else {
+      const sub = this.authService.user.subscribe(
+        async user => {
+          if (!user) {
             this.navCtrl.navigateRoot('/login');
-        } else {
-          const storageUser = await this.dataStorageService.getUser();
-          if (storageUser) {
-            this.navCtrl.navigateRoot(`/${storageUser.selectedRole}`);
+            sub.unsubscribe();
           } else {
-            this.navCtrl.navigateRoot('/login');
+            const userStorage = await this.dataStorageService.getUser();
+            if (userStorage) {
+              this.navCtrl.navigateRoot(`/${userStorage.selectedRole}`);
+            } else {
+              this.navCtrl.navigateRoot('/login');
+            }
           }
         }
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+      );
+    }
   }
 }

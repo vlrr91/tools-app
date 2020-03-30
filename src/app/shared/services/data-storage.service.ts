@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
-import { User } from 'src/app/pages/user/user';
+import { User } from 'src/app/interfaces/user';
 
 const { Storage } = Plugins;
 
@@ -29,14 +29,6 @@ export class DataStorageService {
       return user as User;
     } catch(err) {
       console.error(`${DataStorageService.ERROR_TEXT}/getUser: ${err}`);
-    }
-  }
-
-  async setTextsApplication(texts: string): Promise<void> {
-    try {
-      await Storage.set({ key: 'texts', value: texts });
-    } catch(err) {
-      console.error(`${DataStorageService.ERROR_TEXT}/setTextsApplication: ${err}`);
     }
   }
 
