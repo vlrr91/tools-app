@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="login-page ion-padding">
-    <div class="login-content" *ngIf="pageTexts && formMessages">
+    <div class="form-content" *ngIf="pageTexts && formMessages">
       <form novalidate class="login-form" [formGroup]="form" (ngSubmit)="emailAndPasswordLogin($event)">
         <div class="form-field">
           <ion-item>

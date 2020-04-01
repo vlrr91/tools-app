@@ -1,11 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>ally</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="store">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Store</ion-label>
+    </ion-tab-button>
 
-<ion-content class="ion-padding">
-  <ion-button (click)="signOut()">
-    sign out
-  </ion-button>
-</ion-content>
+    <ion-tab-button tab="chats">
+      <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+      <ion-label>Chats</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

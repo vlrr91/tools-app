@@ -29,7 +29,7 @@ export class RegisterPage implements OnInit {
     this.formMessages = await this.appLanguageService.getPageTexts('formMessages');
   }
 
-  createUser() {
+  createUser(): void {
     if (this.form.valid) {
       this.authService.createUser(
         this.firstNameField.value,

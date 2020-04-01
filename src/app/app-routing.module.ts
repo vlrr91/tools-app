@@ -27,16 +27,24 @@ const routes: Routes = [
     loadChildren: () => import('./pages/welcome/welcome.module').then( m => m.WelcomePageModule)
   },
   {
-    path: 'form-store',
-    loadChildren: () => import('./pages/form-store/form-store.module').then( m => m.FormStorePageModule)
-  },
-  {
     path: 'form-product',
     loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
   },
   {
     path: 'product-detail',
     loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+  },
+  {
+    path: 'form-store',
+    loadChildren: () => import('./pages/form-store/form-store.module').then( m => m.FormStorePageModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+  },
+  {
+    path: 'store',
+    loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageModule)
   },
 ];
 

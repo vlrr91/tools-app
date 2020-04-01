@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-ally',
@@ -8,12 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class AllyPage implements OnInit {
   emailVerified: boolean;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private menu: MenuController) {
+    this.menu.enable(true, 'firsts');
   }
 
-  signOut(): void {
-    //this.loginService.signOut();
+  ngOnInit() {
+    
   }
 }

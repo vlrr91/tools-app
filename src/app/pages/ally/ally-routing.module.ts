@@ -1,19 +1,19 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
-import { CustomerPage } from './customer.page';
+import { AllyPage } from './ally.page';
 
 const routes: Routes = [
   {
     path: 'tabs',
-    component: CustomerPage,
+    component: AllyPage,
     children: [
       {
-        path: 'map',
+        path: 'store',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../map/map.tab.module').then(m => m.MapTabModule)
+              import('../store/store.module').then(m => m.StorePageModule)
           }
         ]
       },
@@ -28,25 +28,15 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'account',
-        children: [
-          {
-            path: '',
-            loadChildren: () => 
-              import('../account/account.module').then(m => m.AccountPageModule)
-          }
-        ]
-      },
-      {
         path: '',
-        redirectTo: '/customer/tabs/map',
+        redirectTo: '/ally/tabs/store',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/customer/tabs/map',
+    redirectTo: '/ally/tabs/store',
     pathMatch: 'full'
   }
 ];
@@ -55,4 +45,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomerPageRoutingModule { }
+export class AllyPageRoutingModule { }

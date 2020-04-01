@@ -14,10 +14,11 @@ import { Facebook } from '@ionic-native/facebook/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { OptionsPopover } from './pages/options-popover/options-popover';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, OptionsPopover],
+  entryComponents: [OptionsPopover],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

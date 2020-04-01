@@ -26,6 +26,10 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 
+.form-content {
+  width: 100%;
+  max-width: 400px;
+}
 .form-error {
   font-size: small;
   display: flex;

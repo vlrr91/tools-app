@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { LoginPage } from './login.page';
-import { ForgotPassModalComponent } from '../forgot-pass-modal/forgot-pass-modal';
+import { ForgotPassModalComponent } from '../forgot-pass/forgot-pass-modal';
 
 @NgModule({
   imports: [

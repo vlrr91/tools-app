@@ -24,10 +24,4 @@ export class AppLanguageService {
     const textsObj = JSON.parse(texts.value);
     return textsObj[page];
   }
-
-  async getMenuTexts(): Promise<any> {
-    const res = await this.afRemoteConfig.strings.menu.toPromise();
-    const menuTexts = JSON.parse(res);
-    return menuTexts;
-  }
 }

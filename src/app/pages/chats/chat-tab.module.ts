@@ -12,4 +12,4 @@ import { ChatTabPage } from './chat-tab.page';
   ],
   declarations: [ChatTabPage]
 })
-export class MapTabModule { }
+export class ChatTabModule { }

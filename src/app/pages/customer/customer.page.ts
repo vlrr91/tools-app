@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from "@ionic/angular";
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
@@ -20,8 +21,11 @@ export class CustomerPage implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private dataStorageService: DataStorageService
-  ) { }
+    private dataStorageService: DataStorageService,
+    private menu: MenuController
+  ) {
+    this.menu.enable(true, 'first');
+  }
 
   async ngOnInit() {
     const user = await this.dataStorageService.getUser();
