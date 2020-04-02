@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { PopoverController, NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
@@ -6,18 +6,12 @@ import { Role } from 'src/app/interfaces/enums';
 import { User } from 'src/app/interfaces/user';
 
 @Component({
-  template: `
-  <ion-list>
-      <ion-item button (click)="changeRole()">
-        <ion-label>Cambia a aliado</ion-label>
-      </ion-item>
-      <ion-item button (click)="logOut()">
-        <ion-label>Cerrar sesión</ion-label>
-      </ion-item>
-    </ion-list>
-  `
+  templateUrl: './options-popover.html'
 })
-export class OptionsPopover {
+export class OptionsPopover implements OnInit {
+  toRole: string;
+  user: User;
+
   constructor(
     private popoverCtrl: PopoverController,
     private authService: AuthService,
@@ -25,30 +19,37 @@ export class OptionsPopover {
     private navCtrl: NavController
   ) {}
 
+  async ngOnInit() {
+    this.user = await this.dataStorageService.getUser();
+    if (this.user.selectedRole === Role.Customer) {
+      this.toRole = 'Cambiar a aliado';
+    } else {
+      this.toRole = 'Cambiar a cliente';
+    }
+  }
+
   async changeRole(): Promise<void> {
-    const user = await this.dataStorageService.getUser();
-   
-    if (user.selectedRole === Role.Ally) {
+    if (this.user.selectedRole === Role.Ally) {
       const updatedUser: User = {
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        roles: user.roles,
+        uid: this.user.uid,
+        displayName: this.user.displayName,
+        photoURL: this.user.photoURL,
+        roles: this.user.roles,
         selectedRole: Role.Customer,
-        provider: user.provider
+        provider: this.user.provider
       }
       await this.dataStorageService.saveUser(updatedUser);
       this.navCtrl.navigateRoot(`${Role.Customer}`);
     }
 
-    if (user.selectedRole === Role.Customer) {
+    if (this.user.selectedRole === Role.Customer) {
       const updatedUser: User = {
-        uid: user.uid,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        roles: user.roles,
+        uid: this.user.uid,
+        displayName: this.user.displayName,
+        photoURL: this.user.photoURL,
+        roles: this.user.roles,
         selectedRole: Role.Ally,
-        provider: user.provider
+        provider: this.user.provider
       }
       await this.dataStorageService.saveUser(updatedUser);
       this.navCtrl.navigateRoot(`${Role.Ally}`);

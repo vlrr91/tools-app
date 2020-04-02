@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="pageTexts">{{pageTexts.titleFormStore}}</ion-title>
   </ion-toolbar>
@@ -9,11 +9,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="page-content">
-    <div class="form-page" *ngIf="pageTexts && formMessages">
-      <ion-text color="primary" class="ion-text-center">
-        <ion-label>{{pageTexts.description}}</ion-label>
-      </ion-text>
-      
+    <div class="form-page" *ngIf="pageTexts && formMessages"> 
       <form novalidate class="register-form" [formGroup]="form">
         <div>
           <ion-item class="form-field">

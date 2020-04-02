@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { StorePage } from './store.page';
-import { OptionsPopover } from '../options-popover/options-popover';
+import { FormStorePageModule } from '../form-store/form-store.module';
 
 @NgModule({
   imports: [

@@ -8,6 +8,12 @@
     <ion-title>Store</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <p>pestaña de store</p>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="not-store">
+    <p>Ingresa los datos de tu ferreteria</p>
+    <ion-button routerLink="/form-store" fill="outline">
+      <ion-icon slot="start" name="clipboard"></ion-icon>
+      click
+    </ion-button>
+  </div>
 </ion-content>
