@@ -43,19 +43,37 @@
             </ion-text>
           </div>
         </div>
+
+        <div *ngIf="currentLatitude && currentLongitude">
+          <here-map (location)="getLocation($event)" [currentLatitude]="currentLatitude" [currentLongitude]="currentLongitude"></here-map>
+        </div>
+
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{pageTexts.address}}</ion-label>
-            <ion-input type="text" formControlName="address"></ion-input>
+            <ion-label position="stacked">Celular</ion-label>
+            <ion-input type="number" formControlName="cellPhone"></ion-input>
           </ion-item>
-          <div *ngIf="addressField.errors && addressField.touched">
-            <ion-text class="form-error" color="danger" *ngIf="addressField.hasError('required')">
+          <div *ngIf="cellPhoneField.errors && cellPhoneField.touched">
+            <ion-text class="form-error" color="danger" *ngIf="cellPhoneField.hasError('required')">
+                <ion-icon name="alert-circle-outline"></ion-icon>
+                <span>{{formMessages.requiredField}}</span>
+            </ion-text>
+          </div>
+        </div>
+        <div class="form-field">
+          <ion-item>
+            <ion-label position="stacked">Telefono</ion-label>
+            <ion-input type="number" formControlName="localPhone"></ion-input>
+          </ion-item>
+          <div *ngIf="localPhoneField.errors && localPhoneField.touched">
+            <ion-text class="form-error" color="danger" *ngIf="localPhoneField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
                 <span>{{formMessages.requiredField}}</span>
             </ion-text>
           </div>
         </div>
         <ion-button
+          type="submit"
           class="ion-margin-top"
           (click)="createStore()" 
           expand="block" 

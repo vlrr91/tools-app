@@ -1,0 +1,18 @@
+<div class="form-field address">
+  <div class="form-address">
+    <ion-item>
+      <ion-label position="stacked">Dirección</ion-label>
+      <ion-input type="text" [formControl]="addressCtrl"></ion-input>
+    </ion-item>
+    <ion-button (click)="validateAddress($event)" type="button" fill="outline">
+      Validar
+    </ion-button>
+  </div>
+  <div *ngIf="addressCtrl.errors && addressCtrl.touched">
+    <ion-text class="form-error" color="danger" *ngIf="addressCtrl.hasError('required')">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <span>Este campo es requirerido</span>
+    </ion-text>
+  </div>
+</div>
+<div #map style="width: 100%; height: 200px;"></div>

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Plugins } from "@capacitor/core";
 import { User } from 'src/app/interfaces/user';
+import { Store } from 'src/app/interfaces/store';
 
 const { Storage } = Plugins;
 
@@ -39,6 +40,28 @@ export class DataStorageService {
       return texts;
     } catch(err) {
       console.error(`${DataStorageService.ERROR_TEXT}/setTextsApplication: ${err}`);
+    }
+  }
+
+  async saveStore(store: Store): Promise<Store> {
+    try {
+      await Storage.set({
+        key: 'store',
+        value: JSON.stringify(store),
+      });
+      return store;
+    } catch(err) {
+      console.error(`${DataStorageService.ERROR_TEXT}/saveStore: ${err}`);
+    }
+  }
+
+  async getStore(): Promise<Store> {
+    try {
+      const data = await Storage.get({ key: 'store' });
+      const store = JSON.parse(data.value);
+      return store as Store;
+    } catch(err) {
+      console.error(`${DataStorageService.ERROR_TEXT}/getStore: ${err}`);
     }
   }
 }

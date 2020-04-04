@@ -1,0 +1,12 @@
+.form-field.address {
+  margin-bottom: 1rem;
+}
+.form-address {
+  display: flex;
+  align-items: flex-end;
+
+  ion-item {
+    flex: 1;
+    margin-right: .5rem;
+  }
+}

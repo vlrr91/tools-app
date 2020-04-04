@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { Plugins } from "@capacitor/core";
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+
+const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-form-store',
@@ -13,6 +17,9 @@ export class FormStorePage implements OnInit {
   form: FormGroup;
   pageTexts: any;
   formMessages: any;
+  location: any;
+  currentLatitude: number;
+  currentLongitude: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,13 +32,19 @@ export class FormStorePage implements OnInit {
   async ngOnInit() {
     this.pageTexts = await this.appLanguage.getPageTexts('formStorePage');
     this.formMessages = await this.appLanguage.getPageTexts('formMessages');
+
+    const location = await Geolocation.getCurrentPosition();
+    const { latitude, longitude } = location.coords;
+    this.currentLatitude = latitude;
+    this.currentLongitude = longitude;
+    console.log(this.currentLatitude, this.currentLongitude)
   }
 
   createStore(): void {
     if (this.form.valid) {
-      // save data in firestore
-      window.dispatchEvent(new CustomEvent('user:ally'));
-      this.navCtrl.navigateRoot('/ally');
+      // window.dispatchEvent(new CustomEvent('user:ally'));
+      // this.navCtrl.navigateRoot('/ally');
+      console.log(this.location);
     } else {
       this.form.markAllAsTouched();
     }
@@ -41,7 +54,8 @@ export class FormStorePage implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       nit: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
-      address: ['', Validators.required],
+      cellPhone: ['', Validators.required],
+      localPhone: ['', Validators.required]
     });
   }
 
@@ -53,7 +67,15 @@ export class FormStorePage implements OnInit {
     return this.form.get('nit');
   }
 
-  get addressField(): AbstractControl {
-    return this.form.get('address');
+  get cellPhoneField(): AbstractControl {
+    return this.form.get('cellPhone');
+  }
+
+  get localPhoneField(): AbstractControl {
+    return this.form.get('localPhone');
+  }
+
+  getLocation(location: any) {
+    this.location = location;
   }
 }
