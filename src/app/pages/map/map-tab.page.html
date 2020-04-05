@@ -8,6 +8,6 @@
     <ion-title>Map</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <p>mapa de ferreterias</p>
+<ion-content *ngIf="stores">
+  <stores-map [stores]="stores" [currentLatitude]="currentLatitude" [currentLongitude]="currentLongitude"></stores-map>
 </ion-content>

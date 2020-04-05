@@ -24,4 +24,8 @@ export class FirestoreService {
     await this.storeCollection.doc(idUser).set(store);
     return store;
   }
+
+  getAllStores(): Observable<Array<Store>> {
+    return this.storeCollection.valueChanges();
+  }
 }
