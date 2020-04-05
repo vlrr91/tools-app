@@ -4,10 +4,44 @@
       <ion-button (click)="presentPopover($event)">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
-    </ion-buttons>  
+    </ion-buttons>
     <ion-title>Map</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <p>mapa de ferreterias</p>
-</ion-content>
+<agm-map [latitude]="  4.662387"
+ [longitude]=" -74.069037"
+ [zoom]="18"
+ [disableDefaultUI]="false"
+ [zoomControl]="true"
+ (mapClick)="mapClicked=($event)">
+
+
+
+  <agm-marker
+  *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)"
+      [iconUrl]="m.iconUrl">
+
+  <agm-info-window>
+    <ion-card>
+      <ion-card-header>
+        {{m.label}}
+      </ion-card-header>
+      <ion-card-content>
+       Estamos aquí
+      </ion-card-content>
+    </ion-card>
+    <ion-button>Productos</ion-button>
+    </agm-info-window>
+
+</agm-marker>
+
+
+
+
+
+</agm-map>
