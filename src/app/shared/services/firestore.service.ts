@@ -18,4 +18,10 @@ export class FirestoreService {
   getStore(id: string): Observable<Store> {
     return this.storeCollection.doc<Store>(id).valueChanges();
   }
+
+  async saveStore(store: Store): Promise<Store> {
+    const { idUser } = store;
+    await this.storeCollection.doc(idUser).set(store);
+    return store;
+  }
 }

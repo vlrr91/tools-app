@@ -9,11 +9,37 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div class="not-store">
+  <div class="not-store" *ngIf="!store">
     <p>Ingresa los datos de tu ferreteria</p>
     <ion-button routerLink="/form-store" fill="outline">
       <ion-icon slot="start" name="clipboard"></ion-icon>
       click
     </ion-button>
+  </div>
+  <div class="page-store" *ngIf="store">
+    <div class="store-img">
+      <ion-avatar>
+        <img src="assets/img/slide3.svg" alt="">
+      </ion-avatar>
+      <h2>{{store.name}}</h2>
+    </div>
+    <div class="store-info">
+      <ion-text>
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>{{store.owner | titlecase }}</ion-label>
+      </ion-text>
+      <ion-text>
+        <ion-icon name="location-outline"></ion-icon>
+        <ion-label>{{store.address}}</ion-label>
+      </ion-text>
+      <ion-text *ngIf="store.cellPhone"> 
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+        <ion-label>{{store.cellPhone}}</ion-label>
+      </ion-text>
+      <ion-text *ngIf="store.localPhone">
+        <ion-icon name="call-outline"></ion-icon>
+        <ion-label>{{store.localPhone}}</ion-label>
+      </ion-text>
+    </div>
   </div>
 </ion-content>

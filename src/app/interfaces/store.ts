@@ -1,12 +1,13 @@
-import * as firebase from 'firebase';
 import { Product } from './products';
 
 export interface Store {
   idUser: string;
+  owner: string;
   name: string;
-  location: firebase.firestore.GeoPoint;
+  location: Array<Number>;
   cellPhone?: string;
   localPhone?: string;
   photoURL?: string;
   products: Array<Product>;
+  address: string;
 }

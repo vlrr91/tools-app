@@ -23,7 +23,10 @@ export class StorePage implements OnInit {
     const { uid } = await this.dataStorageService.getUser();
     this.firestoreService.getStore(uid).subscribe(
       store => {
-        console.log(store);
+        if (store) {
+          this.store = store;
+          console.log(store)
+        }
       }
     )
   }

@@ -5,6 +5,10 @@ import { Plugins } from "@capacitor/core";
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { Store } from 'src/app/interfaces/store';
+import { User } from 'src/app/interfaces/user';
+import { Product } from 'src/app/interfaces/products';
 
 const { Geolocation } = Plugins;
 
@@ -24,7 +28,9 @@ export class FormStorePage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private appLanguage: AppLanguageService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private firestoreService: FirestoreService,
+    private dataStorageService: DataStorageService
   ) {
     this.buildForm();
   }
@@ -37,14 +43,28 @@ export class FormStorePage implements OnInit {
     const { latitude, longitude } = location.coords;
     this.currentLatitude = latitude;
     this.currentLongitude = longitude;
-    console.log(this.currentLatitude, this.currentLongitude)
   }
 
-  createStore(): void {
+  async createStore(): Promise<void> {
     if (this.form.valid) {
-      // window.dispatchEvent(new CustomEvent('user:ally'));
-      // this.navCtrl.navigateRoot('/ally');
-      console.log(this.location);
+      window.dispatchEvent(new CustomEvent('user:ally'));
+      const user: User = await this.dataStorageService.getUser();
+      const { lat, lng, address } = this.location;
+      
+      const newStore: Store = {
+        idUser: user.uid,
+        owner: user.displayName,
+        name: this.nameField.value,
+        cellPhone: this.cellPhoneField.value ? this.cellPhoneField.value : null,
+        localPhone: this.localPhoneField.value ? this.localPhoneField.value : null,
+        photoURL: null,
+        products: new Array<Product>(),
+        location: [lat, lng],
+        address
+      }
+
+      await this.firestoreService.saveStore(newStore)
+      this.navCtrl.navigateRoot('/ally');
     } else {
       this.form.markAllAsTouched();
     }

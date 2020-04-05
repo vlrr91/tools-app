@@ -42,26 +42,4 @@ export class DataStorageService {
       console.error(`${DataStorageService.ERROR_TEXT}/setTextsApplication: ${err}`);
     }
   }
-
-  async saveStore(store: Store): Promise<Store> {
-    try {
-      await Storage.set({
-        key: 'store',
-        value: JSON.stringify(store),
-      });
-      return store;
-    } catch(err) {
-      console.error(`${DataStorageService.ERROR_TEXT}/saveStore: ${err}`);
-    }
-  }
-
-  async getStore(): Promise<Store> {
-    try {
-      const data = await Storage.get({ key: 'store' });
-      const store = JSON.parse(data.value);
-      return store as Store;
-    } catch(err) {
-      console.error(`${DataStorageService.ERROR_TEXT}/getStore: ${err}`);
-    }
-  }
 }

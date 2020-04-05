@@ -61,6 +61,12 @@ export class HereMapComponent implements OnInit {
       this.addDraggableMarker(this.map, this.behavior, marker);
       const geocode = await this.geocodingReverseGeocode(this.currentLatitude, this.currentLongitude);
       this.addressCtrl.setValue(geocode.address);
+
+      this.location.emit({
+        lat: this.currentLatitude,
+        lng: this.currentLongitude,
+        address: geocode.address,
+      });
       
       window.addEventListener('resize', () => this.map.getViewPort().resize());
     }, 100);
