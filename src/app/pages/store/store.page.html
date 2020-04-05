@@ -8,11 +8,11 @@
     <ion-title>Store</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding" *ngIf="!isLoading">
   <div class="not-store" *ngIf="!store">
     <p>Ingresa los datos de tu ferreteria</p>
     <ion-button routerLink="/form-store" fill="outline">
-      <ion-icon slot="start" name="clipboard"></ion-icon>
+      <ion-icon slot="start" name="clipboard-outline"></ion-icon>
       click
     </ion-button>
   </div>

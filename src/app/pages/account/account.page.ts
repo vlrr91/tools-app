@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { OptionsPopover } from '../options-popover/options-popover';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { User } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-account',
@@ -14,7 +15,8 @@ export class AccountPage implements OnInit {
 
   constructor(
     private popoverCtrl: PopoverController,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private authService: AuthService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -27,5 +29,9 @@ export class AccountPage implements OnInit {
       event
     });
     await popover.present();
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

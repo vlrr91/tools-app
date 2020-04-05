@@ -12,6 +12,7 @@ import { Store } from 'src/app/interfaces/store';
 })
 export class StorePage implements OnInit {
   store: Store;
+  isLoading: boolean = true;
 
   constructor(
     private popoverCtrl: PopoverController,
@@ -24,8 +25,10 @@ export class StorePage implements OnInit {
     this.firestoreService.getStore(uid).subscribe(
       store => {
         if (store) {
+          this.isLoading = false;
           this.store = store;
-          console.log(store)
+        } else {
+          this.isLoading = false;
         }
       }
     )

@@ -12,10 +12,13 @@
 <ion-content>
   <div class="page-content" *ngIf="user">
     <ion-avatar>
-      <img [src]="user.photoURL" alt="">
+      <img [src]="user.photoURL ? user.photoURL : 'assets/img/avatar.png'" alt="">
     </ion-avatar>
     <ion-text>
       <h4>{{user.displayName}}</h4>
     </ion-text>
+    <ion-button (click)="logout()">
+      cerrar sesión
+    </ion-button>
   </div>
 </ion-content>
