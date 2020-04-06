@@ -1,3 +1,6 @@
+* {
+  font-family: Abel;
+}
 .register-page {
   height: 100%;
   display: flex;
@@ -6,4 +9,9 @@
 }
 .register-button {
   margin-top: 3rem;
+  font-size: 1rem;
+}
+.field {
+  font-family: Abel;
+  font-size: 1.1rem;
 }

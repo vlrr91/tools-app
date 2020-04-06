@@ -13,7 +13,7 @@
       <form novalidate class="register-form" [formGroup]="form">
         <div>
           <ion-item class="form-field">
-            <ion-label position="stacked">{{pageTexts.name}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.name}}</ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="name"></ion-input>
           </ion-item>
           <div *ngIf="nameField.errors && nameField.touched">
@@ -25,7 +25,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{pageTexts.nit}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.nit}}</ion-label>
             <ion-input type="number" formControlName="nit"></ion-input>
           </ion-item>
           <div *ngIf="nitField.errors && nitField.touched">
@@ -50,7 +50,7 @@
 
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">Celular</ion-label>
+            <ion-label class="field" position="stacked">Celular</ion-label>
             <ion-input type="number" formControlName="cellPhone"></ion-input>
           </ion-item>
           <div *ngIf="cellPhoneField.errors && cellPhoneField.touched">
@@ -62,7 +62,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">Telefono</ion-label>
+            <ion-label class="field" position="stacked">Telefono</ion-label>
             <ion-input type="number" formControlName="localPhone"></ion-input>
           </ion-item>
           <div *ngIf="localPhoneField.errors && localPhoneField.touched">
@@ -74,7 +74,7 @@
         </div>
         <ion-button
           type="submit"
-          class="ion-margin-top"
+          class="form-store-btn ion-margin-top"
           (click)="createStore()" 
           expand="block" 
           fill="outline">{{pageTexts.createStoreButton}}</ion-button>

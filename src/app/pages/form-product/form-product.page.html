@@ -12,7 +12,7 @@
     <form novalidate [formGroup]="form">
       <div class="form-field">
         <ion-item>
-          <ion-label position="stacked">Nombre</ion-label>
+          <ion-label class="field" position="stacked">Nombre</ion-label>
           <ion-input class="ion-text-capitalize" type="text" formControlName="name"></ion-input>
         </ion-item>
         <div *ngIf="nameField.errors && nameField.touched">
@@ -24,7 +24,7 @@
       </div>
       <div class="form-field">
         <ion-item>
-          <ion-label position="stacked">Precio</ion-label>
+          <ion-label class="field" position="stacked">Precio</ion-label>
           <ion-input class="ion-text-capitalize" type="number" formControlName="price"></ion-input>
         </ion-item>
         <div *ngIf="priceField.errors && priceField.touched">
@@ -36,7 +36,7 @@
       </div>
       <div class="form-field">
         <ion-item>
-          <ion-label position="stacked">Cantidad</ion-label>
+          <ion-label class="field" position="stacked">Cantidad</ion-label>
           <ion-input class="ion-text-capitalize" type="text" formControlName="quantity"></ion-input>
         </ion-item>
         <div *ngIf="quantityField.errors && quantityField.touched">
@@ -46,7 +46,7 @@
           </ion-text>
         </div>
       </div>
-      <ion-button (click)="saveProduct()" type="submit">
+      <ion-button expand="block" fill="outline" class="form-product-button ion-margin-top" (click)="saveProduct()" type="submit">
         Guardar
       </ion-button>
     </form> 

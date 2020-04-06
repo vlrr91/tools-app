@@ -1,3 +1,6 @@
+* {
+  font-family: Abel;
+}
 .form-field.address {
   margin-bottom: 1rem;
 }
@@ -9,4 +12,8 @@
     flex: 1;
     margin-right: .5rem;
   }
+}
+.field {
+  font-family: Abel;
+  font-size: 1.1rem;
 }

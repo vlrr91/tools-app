@@ -1,3 +1,6 @@
+* {
+  font-family: Abel;
+}
 .login-page {
   height: 100%;
   display: flex;
@@ -10,14 +13,19 @@
 }
 .login-button {
   margin-top: 3rem;
+  font-size: 1rem;
 }
 .register-text h4 {
-    font-size: .8rem;
+    font-size: .9rem;
 }
 .forgot-text,
 .register-text span {
   text-decoration: underline;
     color: #3880FF;
     cursor: pointer;
-    font-size: .8rem;
+    font-size: .9rem;
 } 
+.field {
+  font-family: Abel;
+  font-size: 1.1rem;
+}

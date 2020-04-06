@@ -4,7 +4,7 @@
       <ion-button (click)="presentPopover($event)">
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
-    </ion-buttons>  
+    </ion-buttons>
     <ion-title>Store</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -32,23 +32,36 @@
         <ion-icon name="location-outline"></ion-icon>
         <ion-label>{{store.address}}</ion-label>
       </ion-text>
-        <ion-text *ngIf="store.cellPhone"> 
-          <ion-icon name="phone-portrait-outline"></ion-icon>
-          <ion-label>{{store.cellPhone}}</ion-label>
-        </ion-text>
-        <ion-text class="ion-margin-start" *ngIf="store.localPhone">
-          <ion-icon name="call-outline"></ion-icon>
-          <ion-label>{{store.localPhone}}</ion-label>
-        </ion-text>
-      </div>
-
-      <p routerLink="/form-product">Crear producto</p>
-
-      <ion-list *ngIf="products">
-        <ion-item *ngFor="let product of products">
-          <ion-label>{{product.name}}</ion-label>
-        </ion-item>
-      </ion-list>
+      <ion-text class="cell" *ngIf="store.cellPhone">
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+        <ion-label>{{store.cellPhone}}</ion-label>
+      </ion-text>
+      <ion-text class="ion-margin-start phone" *ngIf="store.localPhone">
+        <ion-icon name="call-outline"></ion-icon>
+        <ion-label>{{store.localPhone}}</ion-label>
+      </ion-text>
     </div>
-    
+
+    <ion-button fill="outline" color="secondary" class="add-product" routerLink="/form-product">
+      Crear producto
+      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
+    </ion-button>
+
+    <ion-list *ngIf="products">
+      <ion-item *ngFor="let product of products">
+        <ion-thumbnail slot="start">
+          <img 
+          [src]="product.photoURL 
+            ? product.photoURL
+            : '/assets/img/tools.svg'"
+          >
+        </ion-thumbnail>
+        <ion-label>
+          <h3 class="product-title">{{product.name}}</h3>
+          <p class="product-info">{{product.quantity}} unidades - {{product.price | currency:'COP'}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
 </ion-content>

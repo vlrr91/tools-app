@@ -30,33 +30,39 @@
       font-weight: 700;
     }
   }
-  h3 {
-    color: var(--ion-color-dark);
-    font-size: 1.3rem;
-  }
-  ion-text {
-    color: #FFF;
-    display: block;
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    margin: .5rem 0;
-    ion-icon {
-      color: #FFF;
-      margin-right: .6rem;
-      font-size: 1.5rem;
-    }
-    ion-label {
-      color: #FFF;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    }
-  }
 
   .store-info {
     padding: 0.5rem 1rem;
-    border-radius: .7rem;
-    background-color: var(--ion-color-secondary);
+    border-radius: .5rem;
+    border: 1px solid rgb(224, 220, 220);
     width: 100%;
     max-width: 600px;
+  }
+  ion-text {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    ion-icon {
+      color: var(--ion-color-medium);
+      margin-right: .6rem;
+    }
+    ion-label {
+      color: var(--ion-color-medium);
+    }
+  }
+  .cell,
+  .phone {
+    display: inline-flex;
+  }
+
+  .add-product {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .product-title,
+  .product-info {
+    font-size: 1rem;
+    text-transform: capitalize;
   }
 }

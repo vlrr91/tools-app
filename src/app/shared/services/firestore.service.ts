@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { Store } from 'src/app/interfaces/store';
 import { Product } from 'src/app/interfaces/products';
 

@@ -11,7 +11,7 @@
       <form novalidate class="login-form" [formGroup]="form" (ngSubmit)="emailAndPasswordLogin($event)">
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">
+            <ion-label class="field" position="stacked">
               {{pageTexts.email}}
             </ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label position="stacked">{{pageTexts.pass}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.pass}}</ion-label>
             <ion-input type="password" formControlName="pass"></ion-input>
           </ion-item>
           <div *ngIf="passwordField.errors && passwordField.touched">
