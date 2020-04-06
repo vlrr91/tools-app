@@ -40,7 +40,7 @@
     font-size: 1.3rem;
     display: flex;
     align-items: center;
-    margin: 1rem 0;
+    margin: .5rem 0;
     ion-icon {
       color: #FFF;
       margin-right: .6rem;
@@ -53,11 +53,10 @@
   }
 
   .store-info {
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     border-radius: .7rem;
     background-color: var(--ion-color-secondary);
     width: 100%;
     max-width: 600px;
-    margin: 2rem auto;
   }
 }

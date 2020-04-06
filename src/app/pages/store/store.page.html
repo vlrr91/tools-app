@@ -32,14 +32,23 @@
         <ion-icon name="location-outline"></ion-icon>
         <ion-label>{{store.address}}</ion-label>
       </ion-text>
-      <ion-text *ngIf="store.cellPhone"> 
-        <ion-icon name="phone-portrait-outline"></ion-icon>
-        <ion-label>{{store.cellPhone}}</ion-label>
-      </ion-text>
-      <ion-text *ngIf="store.localPhone">
-        <ion-icon name="call-outline"></ion-icon>
-        <ion-label>{{store.localPhone}}</ion-label>
-      </ion-text>
+        <ion-text *ngIf="store.cellPhone"> 
+          <ion-icon name="phone-portrait-outline"></ion-icon>
+          <ion-label>{{store.cellPhone}}</ion-label>
+        </ion-text>
+        <ion-text class="ion-margin-start" *ngIf="store.localPhone">
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-label>{{store.localPhone}}</ion-label>
+        </ion-text>
+      </div>
+
+      <p routerLink="/form-product">Crear producto</p>
+
+      <ion-list *ngIf="products">
+        <ion-item *ngFor="let product of products">
+          <ion-label>{{product.name}}</ion-label>
+        </ion-item>
+      </ion-list>
     </div>
-  </div>
+    
 </ion-content>

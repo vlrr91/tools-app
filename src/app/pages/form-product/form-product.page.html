@@ -1,9 +1,54 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>form-product</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="form-content">
+    <form novalidate [formGroup]="form">
+      <div class="form-field">
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input class="ion-text-capitalize" type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <div *ngIf="nameField.errors && nameField.touched">
+          <ion-text class="form-error" color="danger" *ngIf="nameField.hasError('required')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>campo requerido</span>
+          </ion-text>
+        </div>
+      </div>
+      <div class="form-field">
+        <ion-item>
+          <ion-label position="stacked">Precio</ion-label>
+          <ion-input class="ion-text-capitalize" type="number" formControlName="price"></ion-input>
+        </ion-item>
+        <div *ngIf="priceField.errors && priceField.touched">
+          <ion-text class="form-error" color="danger" *ngIf="priceField.hasError('required')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>campo requerido</span>
+          </ion-text>
+        </div>
+      </div>
+      <div class="form-field">
+        <ion-item>
+          <ion-label position="stacked">Cantidad</ion-label>
+          <ion-input class="ion-text-capitalize" type="text" formControlName="quantity"></ion-input>
+        </ion-item>
+        <div *ngIf="quantityField.errors && quantityField.touched">
+          <ion-text class="form-error" color="danger" *ngIf="quantityField.hasError('required')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>campo requerido</span>
+          </ion-text>
+        </div>
+      </div>
+      <ion-button (click)="saveProduct()" type="submit">
+        Guardar
+      </ion-button>
+    </form> 
+  </div>
 </ion-content>
