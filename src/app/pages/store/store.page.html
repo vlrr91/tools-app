@@ -8,7 +8,7 @@
     <ion-title>Store</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" class="ion-padding" *ngIf="!isLoading">
+<ion-content [fullscreen]="true" *ngIf="!isLoading">
   <div class="not-store" *ngIf="!store">
     <p>Ingresa los datos de tu ferreteria</p>
     <ion-button routerLink="/form-store" fill="outline">
@@ -24,38 +24,35 @@
       <h2>{{store.name}}</h2>
     </div>
     <div class="store-info">
-      <ion-text>
-        <ion-icon name="person-outline"></ion-icon>
-        <ion-label>{{store.owner | titlecase }}</ion-label>
-      </ion-text>
-      <ion-text>
-        <ion-icon name="location-outline"></ion-icon>
-        <ion-label>{{store.address}}</ion-label>
-      </ion-text>
-      <ion-text class="cell" *ngIf="store.cellPhone">
-        <ion-icon name="phone-portrait-outline"></ion-icon>
-        <ion-label>{{store.cellPhone}}</ion-label>
-      </ion-text>
-      <ion-text class="ion-margin-start phone" *ngIf="store.localPhone">
-        <ion-icon name="call-outline"></ion-icon>
-        <ion-label>{{store.localPhone}}</ion-label>
-      </ion-text>
+      <div class="info-content">
+        <ion-text>
+          <ion-icon name="person-outline"></ion-icon>
+          <ion-label>{{store.owner | titlecase }}</ion-label>
+        </ion-text>
+        <ion-text>
+          <ion-icon name="location-outline"></ion-icon>
+          <ion-label>{{store.address}}</ion-label>
+        </ion-text>
+        <ion-text class="cell" *ngIf="store.cellPhone">
+          <ion-icon name="phone-portrait-outline"></ion-icon>
+          <ion-label>{{store.cellPhone}}</ion-label>
+        </ion-text>
+        <ion-text class="ion-margin-start phone" *ngIf="store.localPhone">
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-label>{{store.localPhone}}</ion-label>
+        </ion-text>
+      </div>
     </div>
 
-    <ion-button fill="outline" color="secondary" class="add-product" routerLink="/form-product">
-      Crear producto
-      <ion-icon slot="end" name="add-circle-outline"></ion-icon>
-    </ion-button>
-
-    <ion-list *ngIf="products">
+    <ion-list *ngIf="products" class="products-list ion-padding-end">
       <ion-item *ngFor="let product of products">
-        <ion-thumbnail slot="start">
+        <ion-avatar slot="start">
           <img 
           [src]="product.photoURL 
             ? product.photoURL
             : '/assets/img/tools.svg'"
           >
-        </ion-thumbnail>
+        </ion-avatar>
         <ion-label>
           <h3 class="product-title">{{product.name}}</h3>
           <p class="product-info">{{product.quantity}} unidades - {{product.price | currency:'COP'}}</p>
@@ -63,5 +60,11 @@
       </ion-item>
     </ion-list>
   </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/form-product">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>
