@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+
 import { OptionsPopover } from '../options-popover/options-popover';
 import { FirestoreService } from 'src/app/shared/services/firestore.service';
-import { Plugins } from '@capacitor/core';
 import { Store } from 'src/app/interfaces/store';
 
 const { Geolocation } = Plugins;

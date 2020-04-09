@@ -12,11 +12,11 @@
     height: 150px;
   }
   ion-text {
-    text-transform: capitalize;
+    text-transform: uppercase;
     color: var(--ion-color-dark);
 
     h4 {
-      font-size: 1.7rem;
+      font-size: 1.5rem;
       letter-spacing: 1px;
     };
   }

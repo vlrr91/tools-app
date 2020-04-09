@@ -1,6 +1,10 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from "@angular/core";
+import { NavController, ModalController } from '@ionic/angular';
+
 import { environment } from 'src/environments/environment';
 import { Store } from 'src/app/interfaces/store';
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+import { ActionStoreMapComponent } from 'src/app/pages/action-store-map/action-store-map';
 
 declare var H: any;
 
@@ -15,10 +19,13 @@ export class StoresMap implements OnInit {
   @Input() currentLongitude: number;
   private platform: any;
   private map: any;
-  private behavior: any;
-  private geocodingService: any;
 
-  constructor() {}
+  constructor(
+    private navCtrl: NavController,
+    private dataStorageService: DataStorageService,
+    private modalCtrl: ModalController
+    //private chatService: ChatService
+  ) {}
 
   ngOnInit(): void {
     this.initializePlatform();
@@ -37,7 +44,7 @@ export class StoresMap implements OnInit {
   }
 
   private initializeMap(): void {
-    setTimeout(() => {
+    setTimeout(async () => {
       const defaultLayers = this.platform.createDefaultLayers();
       this.map = new H.Map(
         this.mapElement.nativeElement,
@@ -48,19 +55,35 @@ export class StoresMap implements OnInit {
         }
       );
       const mapEvents = new H.mapevents.MapEvents(this.map);
-      this.behavior = new H.mapevents.Behavior(mapEvents);
-      this.geocodingService = this.platform.getGeocodingService();
-      
+      new H.mapevents.Behavior(mapEvents);
+ 
+      this.map.removeObjects(this.map.getObjects());
+
+      const user = await this.dataStorageService.getUser();
       this.stores.forEach(el => {
-        this.addMarker(el.location[0], el.location[1]);
-      })  
+        if (user.uid !== el.idUser) { 
+          this.addMarker(el.location[0], el.location[1], el.idUser);
+        }
+      });  
     }, 100);
   }
 
-  private addMarker(lat: Number, lng: Number): void {
+  private addMarker(lat: Number, lng: Number, idReceiver: string): void {
     const marker = new H.map.Marker({ lat, lng });
     this.map.addObject(marker);
+    
+    marker.addEventListener('tap', () => {
+      this.presentModal(idReceiver);
+      //this.navCtrl.navigateForward(`/chat/${idReceiver}`);
+    }, false);
+  }
 
-    marker.addEventListener('tap', () => console.log(12));
+  async presentModal(idAlly: string): Promise<void> {
+    const modal = await this.modalCtrl.create({
+      component: ActionStoreMapComponent,
+      componentProps: { idAlly },
+      cssClass: 'my-custom-modal-css'
+    });
+    return modal.present();
   }
 }

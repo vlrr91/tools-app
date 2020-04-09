@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MapTabPage } from './map-tab.page';
 import { StoresMap } from './components/stores-map/stores-map';
+import { ActionStoreMapComponent } from '../action-store-map/action-store-map';
 
 @NgModule({
   imports: [
@@ -11,6 +12,7 @@ import { StoresMap } from './components/stores-map/stores-map';
     CommonModule,
     RouterModule.forChild([{ path: '', component: MapTabPage }])
   ],
-  declarations: [MapTabPage, StoresMap]
+  declarations: [MapTabPage, StoresMap, ActionStoreMapComponent],
+  entryComponents: [ActionStoreMapComponent]
 })
 export class MapTabModule { }

@@ -65,7 +65,7 @@ export class LoginPage implements OnInit {
     return this.form.get('pass');
   }
 
-  async presentModal() {
+  async presentModal(): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: ForgotPassModalComponent,
       componentProps: {

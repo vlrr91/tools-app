@@ -9,5 +9,22 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <p>pestaña de chats</p>
+  <ion-list *ngIf="chats" class="products-list ion-padding-end">
+    <ion-item *ngFor="let chat of chats" (click)="openChat(chat.idUser)">
+      <ion-avatar slot="start">
+        <img 
+        [src]="chat.photoURL 
+          ? chat.photoURL
+          : '/assets/img/avatar.png'"
+        >
+      </ion-avatar>
+      <ion-label>
+        <h4>{{chat.displayName | titlecase }}</h4>
+        <p>{{chat.messages[chat.messages.length - 1].text}}</p>
+      </ion-label>
+      <ion-badge
+        slot="end">{{chat.messages[chat.messages.length - 1].createdAt | formatTime }}
+      </ion-badge>
+    </ion-item>
+  </ion-list>
 </ion-content>
