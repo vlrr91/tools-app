@@ -11,9 +11,11 @@
 
 <ion-content>
   <div class="page-content" *ngIf="user">
-    <ion-avatar>
-      <img [src]="user.photoURL ? user.photoURL : 'assets/img/avatar.png'" alt="">
-    </ion-avatar>
+    <div class="page-avatar">
+      <ion-avatar>
+        <img [src]="user.photoURL ? user.photoURL : 'assets/img/avatar.png'" alt="">
+      </ion-avatar>
+    </div>
     <ion-text>
       <h4>{{user.displayName}}</h4>
     </ion-text>

@@ -5,14 +5,14 @@
   "npmClient": "npm",
   "webDir": "www",
   "cordova": {},
-  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
   "plugins": {
     "SplashScreen": {
       "backgroundColor": "#000000"
     }
   },
+  "linuxAndroidStudioPath": "/var/lib/flatpak/app/com.google.AndroidStudio/current/b0a7cb9be3d0a456c3def516e364eb74db70b1cdc69a6dffffdc5ce2a2e2391d/files/extra/android-studio/bin/studio.sh",
   "server": {
-    "url": "http://192.168.1.2:8100",
+    "url": "http://192.168.1.3:8100",
     "cleartext": true
   }
 }

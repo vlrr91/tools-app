@@ -15,6 +15,7 @@ import { FormStorePageModule } from '../form-store/form-store.module';
     IonicModule,
     RouterModule.forChild([{ path: '', component: StorePage }])
   ],
-  declarations: [StorePage]
+  declarations: [StorePage],
+  exports: [StorePage]
 })
 export class StorePageModule {}

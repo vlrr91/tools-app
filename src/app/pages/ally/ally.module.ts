@@ -6,13 +6,15 @@ import { AllyPageRoutingModule } from './ally-routing.module';
 import { IonicModule } from '@ionic/angular';
 
 import { AllyPage } from './ally.page';
+import { StorePageModule } from '../store/store.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AllyPageRoutingModule
+    AllyPageRoutingModule,
+    StorePageModule
   ],
   declarations: [AllyPage]
 })

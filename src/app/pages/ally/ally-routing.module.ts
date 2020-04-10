@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from "@angular/router";
 import { AllyPage } from './ally.page';
+import { StorePage } from '../store/store.page';
 
 const routes: Routes = [
+  {
+    path: ':id',
+    component: StorePage
+  },
   {
     path: 'tabs',
     component: AllyPage,

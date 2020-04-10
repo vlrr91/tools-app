@@ -5,19 +5,19 @@
         cerrar
       </ion-button>
     </div>
-    <div class="modal-info">
+    <div class="modal-info" *ngIf="store">
       <ion-avatar class="modal-avatar">
-        <img src="/assets/img/avatar.png" alt="">
+        <img [src]="store.photoURL ? store.photoURL : '/assets/img/slide3.svg'" alt="">
       </ion-avatar>
       <ion-text class="modal-text">
-        <h4>{{"victor" | titlecase}}</h4>
+        <h4>{{store.name | titlecase}}</h4>
       </ion-text>
     </div>
     <div class="modal-actions">
-      <ion-button fill="clear" class="custom-modal-btn">
+      <ion-button (click)="openStore()" fill="clear" class="custom-modal-btn">
         <ion-icon slot="icon-only" name="information-circle-outline"></ion-icon>
       </ion-button>
-      <ion-button fill="clear" class="custom-modal-btn">
+      <ion-button (click)="openChat()" fill="clear" class="custom-modal-btn">
         <ion-icon slot="icon-only" name="chatbox-ellipses-outline"></ion-icon>
       </ion-button>
     </div>

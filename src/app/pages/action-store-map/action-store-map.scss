@@ -1,3 +1,6 @@
+* {
+  font-family: Abel;
+}
 .modal-container {
   height: 100%;
   position: relative;
@@ -27,8 +30,8 @@
 
   .modal-avatar {
     margin: 0 1rem;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
   }
 
