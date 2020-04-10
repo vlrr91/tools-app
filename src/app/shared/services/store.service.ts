@@ -9,7 +9,7 @@ import { Product } from 'src/app/interfaces/products';
 @Injectable({
   providedIn: 'root'
 })
-export class FirestoreService {
+export class StoreService {
   private storeCollection: AngularFirestoreCollection<Store>;
 
   constructor(private afs: AngularFirestore) {

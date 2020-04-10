@@ -5,7 +5,7 @@ import { Plugins } from "@capacitor/core";
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
 import { User } from 'src/app/interfaces/user';
 import { Product } from 'src/app/interfaces/products';
@@ -29,7 +29,7 @@ export class FormStorePage implements OnInit {
     private formBuilder: FormBuilder,
     private appLanguage: AppLanguageService,
     private navCtrl: NavController,
-    private firestoreService: FirestoreService,
+    private storeService: StoreService,
     private dataStorageService: DataStorageService
   ) {
     this.buildForm();
@@ -69,7 +69,7 @@ export class FormStorePage implements OnInit {
         address
       }
 
-      await this.firestoreService.saveStore(newStore)
+      await this.storeService.saveStore(newStore)
       this.navCtrl.navigateRoot('/ally');
     } else {
       this.form.markAllAsTouched();

@@ -8,7 +8,7 @@ import * as firebase from 'firebase/app';
 import { Observable, Subscription } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { UserService } from 'src/app/shared/services/user-firestore.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/interfaces/user';
 import { Provider } from '../../interfaces/enums';
 

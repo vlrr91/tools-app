@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { NavController } from "@ionic/angular";
 
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { StoreService } from 'src/app/shared/services/store.service';
 import { Product } from 'src/app/interfaces/products';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'app-form-product',
@@ -13,17 +14,24 @@ import { DataStorageService } from 'src/app/shared/services/data-storage.service
 })
 export class FormProductPage implements OnInit {
   form: FormGroup;
+  pageTexts: any;
+  requiredText: string;
 
   constructor(
     private formBuilder: FormBuilder,
-    private firestoreService: FirestoreService,
+    private storeService: StoreService,
     private dataStorageService: DataStorageService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private appLanguageService: AppLanguageService
   ) {
     this.buildForm();
   }
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
+    const pageTexts = await this.appLanguageService.getPageTexts('formProductPage');
+    const formMessages = await this.appLanguageService.getPageTexts('formMessages');
+    this.pageTexts = pageTexts;
+    this.requiredText = formMessages.requiredField;
   }
 
   private buildForm(): void {
@@ -55,7 +63,7 @@ export class FormProductPage implements OnInit {
         quantity: this.quantityField.value,
         photoURL: null
       }
-      await this.firestoreService.saveProduct(user.uid, newProduct);
+      await this.storeService.saveProduct(user.uid, newProduct);
 
       this.navCtrl.navigateRoot('/ally');
     } else {

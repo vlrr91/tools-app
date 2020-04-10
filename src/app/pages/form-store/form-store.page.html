@@ -49,18 +49,25 @@
         </div>
 
         <div *ngIf="currentLatitude && currentLongitude">
-          <here-map (location)="getLocation($event)" [currentLatitude]="currentLatitude" [currentLongitude]="currentLongitude"></here-map>
+          <here-map 
+            (location)="getLocation($event)"
+            [currentLatitude]="currentLatitude"
+            [currentLongitude]="currentLongitude"
+            [addressText]="pageTexts.address"
+            [validateBtnText]="pageTexts.validateButton"
+            [requiredText]="formMessages.requiredField">
+          </here-map>
         </div>
 
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">Celular</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.mobile}}</ion-label>
             <ion-input type="number" formControlName="cellPhone"></ion-input>
           </ion-item>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">Telefono</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.phone}}</ion-label>
             <ion-input type="number" formControlName="localPhone"></ion-input>
           </ion-item>
         </div>

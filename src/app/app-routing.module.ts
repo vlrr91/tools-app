@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'splash-screen', pathMatch: 'full' },
@@ -12,11 +13,13 @@ const routes: Routes = [
   },
   {
     path: 'customer',
-    loadChildren: () => import('./pages/customer/customer.module').then( m => m.CustomerPageModule)
+    loadChildren: () => import('./pages/customer/customer.module').then( m => m.CustomerPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'ally',
-    loadChildren: () => import('./pages/ally/ally.module').then( m => m.AllyPageModule)
+    loadChildren: () => import('./pages/ally/ally.module').then( m => m.AllyPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'splash-screen',
@@ -28,27 +31,33 @@ const routes: Routes = [
   },
   {
     path: 'form-product',
-    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule)
+    loadChildren: () => import('./pages/form-product/form-product.module').then( m => m.FormProductPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'product-detail',
-    loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule)
+    loadChildren: () => import('./pages/product-detail/product-detail.module').then( m => m.ProductDetailPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'form-store',
-    loadChildren: () => import('./pages/form-store/form-store.module').then( m => m.FormStorePageModule)
+    loadChildren: () => import('./pages/form-store/form-store.module').then( m => m.FormStorePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'account',
-    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'store',
-    loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageModule)
+    loadChildren: () => import('./pages/store/store.module').then( m => m.StorePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'chat',
-    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule)
+    loadChildren: () => import('./pages/chat/chat.module').then( m => m.ChatPageModule),
+    canActivate: [AuthGuard]
   }
 ];
 

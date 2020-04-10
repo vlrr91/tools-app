@@ -4,9 +4,10 @@ import { PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
 import { Product } from 'src/app/interfaces/products';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'app-store',
@@ -18,20 +19,24 @@ export class StorePage implements OnInit {
   products: Array<Product>;
   isLoading: boolean = true;
   storeOwner: boolean;
+  pageTexts: any;
 
   constructor(
     private popoverCtrl: PopoverController,
     private dataStorageService: DataStorageService,
-    private firestoreService: FirestoreService,
-    private router: ActivatedRoute
+    private storeService: StoreService,
+    private router: ActivatedRoute,
+    private appLanguageService: AppLanguageService
   ) { }
 
   async ngOnInit() {
     const id = this.router.snapshot.paramMap.get('id');
+    const pageTexts = await this.appLanguageService.getPageTexts('storePage');
+    this.pageTexts = pageTexts;
     
     if (id) {
       this.storeOwner = false;
-      this.firestoreService.getStore(id).subscribe(
+      this.storeService.getStore(id).subscribe(
         store => {
           if (store) {
             console.log(store)
@@ -46,7 +51,7 @@ export class StorePage implements OnInit {
     } else {
       this.storeOwner = true;
       const { uid } = await this.dataStorageService.getUser();
-      this.firestoreService.getStore(uid).subscribe(
+      this.storeService.getStore(uid).subscribe(
         store => {
           if (store) {
             this.isLoading = false;

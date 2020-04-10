@@ -3,8 +3,9 @@ import { PopoverController, AlertController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 
 import { OptionsPopover } from '../options-popover/options-popover';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 const { Geolocation } = Plugins;
 
@@ -17,17 +18,21 @@ export class MapTabPage implements OnInit {
   stores: Array<Store>;
   currentLatitude: number;
   currentLongitude: number;
-  
+  titleText: string;
+
   constructor(
     private popoverCtrl: PopoverController,
-    private firestoreService: FirestoreService,
-    private alertCtrl: AlertController
+    private storeService: StoreService,
+    private alertCtrl: AlertController,
+    private appLanguageService: AppLanguageService
   ) { }
 
   async ngOnInit(): Promise<void> {
-   await this.getCurrentPosition();
-  
-    this.firestoreService.getAllStores().subscribe(
+    await this.getCurrentPosition();
+    const pageTexts = await this.appLanguageService.getPageTexts('others');
+    this.titleText = pageTexts.titleMapPage;
+
+    this.storeService.getAllStores().subscribe(
       stores => {
         this.stores = stores;
       }
@@ -40,9 +45,9 @@ export class MapTabPage implements OnInit {
       const { latitude, longitude } = location.coords;
       this.currentLatitude = latitude;
       this.currentLongitude = longitude;
-    } catch(error) {
+    } catch (error) {
       this.currentLatitude = 4.6097102,
-      this.currentLongitude =  -74.081749
+      this.currentLongitude = -74.081749
       await this.presentAlert();
     }
   }
@@ -56,9 +61,11 @@ export class MapTabPage implements OnInit {
   }
 
   async presentAlert(): Promise<void> {
+    const texts = await this.appLanguageService.getPageTexts('others');
+    const alertMessage = texts.alertMessage;
+
     const alert = await this.alertCtrl.create({
-      header: 'Permiso Geolocalización',
-      message: 'Es necesario que aceptes permiso, para una mejor experiencia',
+      message: alertMessage,
       buttons: ['ok']
     });
     await alert.present();

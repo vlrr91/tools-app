@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from "@ionic/angular";
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Provider } from 'src/app/interfaces/enums'; 
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
+import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 
 @Component({
   selector: 'app-customer',
@@ -14,33 +14,23 @@ export class CustomerPage implements OnInit {
   emailVerified: boolean = true;
   sendEmail: boolean = false;
   pageTexts: any;
-  msgValidateText: string;
-  sendMsgBtnText: string;
-  refreshBtnText: string;
-  msgSendText: string;
+  tabsTexts: any;
 
   constructor(
     private authService: AuthService,
     private dataStorageService: DataStorageService,
-    private menu: MenuController
-  ) {
-    this.menu.enable(true, 'first');
-  }
+    private appLanguageService: AppLanguageService 
+  ) {}
 
   async ngOnInit() {
     const user = await this.dataStorageService.getUser();
     if (user.provider === Provider.Email) {
       this.validateEmailState();
     }
-    this.dataStorageService.getTextsApplication().then(
-      texts => {
-        this.pageTexts = texts.customerPage;
-        this.msgValidateText = this.pageTexts.messageValidate;
-        this.sendMsgBtnText = this.pageTexts.sendMessageButton;
-        this.refreshBtnText = this.pageTexts.refreshButton;
-        this.msgSendText = this.pageTexts.messageSend;
-      }
-    );
+    const pageTexts = await this.appLanguageService.getPageTexts('customerPage');
+    const tabsTexts = await this.appLanguageService.getPageTexts('tabsTexts');
+    this.pageTexts = pageTexts;
+    this.tabsTexts = tabsTexts;
   }
 
   sendVerificationEmail() {

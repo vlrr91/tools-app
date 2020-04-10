@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'app-ally',
@@ -8,12 +8,12 @@ import { MenuController } from '@ionic/angular';
 })
 export class AllyPage implements OnInit {
   emailVerified: boolean;
+  tabsTexts: any;
 
-  constructor(private menu: MenuController) {
-    this.menu.enable(true, 'firsts');
-  }
+  constructor(private appLanguageService: AppLanguageService) {}
 
-  ngOnInit() {
-    
+  async ngOnInit(): Promise<void> {
+    const tabsTexts = await this.appLanguageService.getPageTexts('tabsTexts');
+    this.tabsTexts = tabsTexts;
   }
 }

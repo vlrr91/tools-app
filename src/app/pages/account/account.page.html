@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>  
-    <ion-title>account</ion-title>
+    <ion-title *ngIf="pageTexts">{{pageTexts.titleAccountPage}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,7 +20,7 @@
       <h4>{{user.displayName}}</h4>
     </ion-text>
     <ion-button fill="outline" (click)="logout()">
-      cerrar sesión
+      {{pageTexts.logout}}
     </ion-button>
   </div>
 </ion-content>

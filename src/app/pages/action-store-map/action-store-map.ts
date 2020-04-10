@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NavParams, ModalController, NavController} from '@ionic/angular';
-import { FirestoreService } from 'src/app/shared/services/firestore.service';
+import { StoreService } from 'src/app/shared/services/store.service';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'action-store-map',
@@ -10,11 +11,13 @@ import { FirestoreService } from 'src/app/shared/services/firestore.service';
 export class ActionStoreMapComponent implements OnInit {
   idAlly: string;
   store: any;
+  closeBtnText: string;
 
   constructor(
     private modalCtrl: ModalController,
-    private firestoreService: FirestoreService,
+    private storeService: StoreService,
     private navCtrl: NavController,
+    private appLanguageService: AppLanguageService,
     navParams: NavParams
   ) {
     this.idAlly = navParams.get('idAlly');
@@ -24,8 +27,11 @@ export class ActionStoreMapComponent implements OnInit {
     this.modalCtrl.dismiss();
   }
 
-  ngOnInit() {
-    this.firestoreService.getStore(this.idAlly).subscribe(
+  async ngOnInit(): Promise<void> {
+    const texts = await this.appLanguageService.getPageTexts('formMessages');
+    this.closeBtnText = texts.closeButton;
+
+    this.storeService.getStore(this.idAlly).subscribe(
       store => {
         this.store = store;
       }

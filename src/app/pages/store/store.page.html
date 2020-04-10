@@ -8,15 +8,15 @@
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Store</ion-title>
+    <ion-title *ngIf="pageTexts">{{pageTexts.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" *ngIf="!isLoading">
   <div class="not-store" *ngIf="!store">
-    <p>Ingresa los datos de tu ferreteria</p>
+    <p *ngIf="pageTexts">{{pageTexts.details}}</p>
     <ion-button routerLink="/form-store" fill="outline">
       <ion-icon slot="start" name="clipboard-outline"></ion-icon>
-      click
+      Click
     </ion-button>
   </div>
   <div class="page-store" *ngIf="store">
@@ -58,13 +58,13 @@
         </ion-avatar>
         <ion-label>
           <h3 class="product-title">{{product.name}}</h3>
-          <p class="product-info">{{product.quantity}} unidades - {{product.price | currency:'COP'}}</p>
+          <p class="product-info" *ngIf="pageTexts">{{product.quantity}} {{pageTexts.units}}- {{product.price | currency:'COP'}}</p>
         </ion-label>
       </ion-item>
     </ion-list>
   </div>
 
-  <ion-fab *ngIf="storeOwner" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab *ngIf="storeOwner && store" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button routerLink="/form-product">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

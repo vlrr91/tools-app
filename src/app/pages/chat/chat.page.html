@@ -27,7 +27,7 @@
     <div class="send-content">
       <ion-textarea
       [formControl]="messageCtrl"
-      placeholder="escribe un mensaje"
+      [placeholder]="writeMessageText"
       ></ion-textarea>
       <ion-button [disabled]="!messageCtrl.valid" fill="clear" (click)="sendMessage()">
         <ion-icon slot="icon-only" name="send"></ion-icon>

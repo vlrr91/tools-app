@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, AbstractControl, Validators } from '@angular/forms';
 
-import { UserService } from 'src/app/shared/services/user-firestore.service';
+import { UserService } from 'src/app/shared/services/user.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { User } from 'src/app/interfaces/user';
+import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'app-chat',
@@ -17,12 +18,14 @@ export class ChatPage implements OnInit {
   user: User;
   messages: any = [];
   messageCtrl: FormControl;
+  writeMessageText: string;
 
   constructor(
     private router: ActivatedRoute,
     private userService: UserService,
     private dataStorageService: DataStorageService,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private appLanguageService: AppLanguageService
   ) {
     this.messageCtrl = new FormControl('', Validators.required);
   }
@@ -30,6 +33,9 @@ export class ChatPage implements OnInit {
   async ngOnInit(): Promise<void> {
     const userLocal = await this.dataStorageService.getUser();
     this.user = userLocal;
+
+    const texts = await this.appLanguageService.getPageTexts('others');
+    this.writeMessageText = texts.writeMessage;
 
     const idReceiver = this.router.snapshot.paramMap.get('idReceiver');
     const sub = this.userService.getUser(idReceiver).subscribe(

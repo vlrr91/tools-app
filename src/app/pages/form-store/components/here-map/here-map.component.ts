@@ -14,8 +14,11 @@ export class HereMapComponent implements OnInit {
   @Output() location = new EventEmitter<any>();
   @Input() currentLatitude: number;
   @Input() currentLongitude: number;
+  @Input() addressText: string;
+  @Input() validateBtnText: string;
+  @Input() requiredText: string;
   @ViewChild("map", { static: false }) public mapElement: ElementRef;
-  private addressCtrl: FormControl;
+  addressCtrl: FormControl;
   private platform: any;
   private map: any;
   private behavior: any;
@@ -113,7 +116,7 @@ export class HereMapComponent implements OnInit {
     }, false);
   }
 
-  private async validateAddress(event: Event) {
+  async validateAddress(event: Event) {
     event.preventDefault();
     if (this.addressCtrl.valid) {
       try {

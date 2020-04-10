@@ -43,6 +43,7 @@ export class StoresMap implements OnInit {
 
   private initializeMap(): void {
     setTimeout(async () => {
+      console.log(this.currentLongitude, this.currentLatitude)
       const defaultLayers = this.platform.createDefaultLayers();
       this.map = new H.Map(
         this.mapElement.nativeElement,
