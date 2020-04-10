@@ -1,3 +1,3 @@
 # Tools
 Proyecto final del bootcamp impartido por Bictia, la aplicación conecta usuarios 
-con ferreterias a través un chat, las ferreteria son ubicadas por geolocalización.
+con ferreterías a través un chat, las ferreterías son ubicadas por geolocalización.
