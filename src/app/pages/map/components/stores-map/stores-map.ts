@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from "@angular/core";
-import { NavController, ModalController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 import { environment } from 'src/environments/environment';
 import { Store } from 'src/app/interfaces/store';
@@ -21,10 +21,8 @@ export class StoresMap implements OnInit {
   private map: any;
 
   constructor(
-    private navCtrl: NavController,
     private dataStorageService: DataStorageService,
     private modalCtrl: ModalController
-    //private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +72,6 @@ export class StoresMap implements OnInit {
     
     marker.addEventListener('tap', () => {
       this.presentModal(idReceiver);
-      //this.navCtrl.navigateForward(`/chat/${idReceiver}`);
     }, false);
   }
 

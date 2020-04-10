@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, AlertController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 
 import { OptionsPopover } from '../options-popover/options-popover';
@@ -20,15 +20,13 @@ export class MapTabPage implements OnInit {
   
   constructor(
     private popoverCtrl: PopoverController,
-    private firestoreService: FirestoreService
+    private firestoreService: FirestoreService,
+    private alertCtrl: AlertController
   ) { }
 
   async ngOnInit(): Promise<void> {
-    const location = await Geolocation.getCurrentPosition();
-    const { latitude, longitude } = location.coords;
-    this.currentLatitude = latitude;
-    this.currentLongitude = longitude;
-
+   await this.getCurrentPosition();
+  
     this.firestoreService.getAllStores().subscribe(
       stores => {
         this.stores = stores;
@@ -36,11 +34,33 @@ export class MapTabPage implements OnInit {
     )
   }
 
-  async presentPopover(event: Event) {
+  private async getCurrentPosition() {
+    try {
+      const location = await Geolocation.getCurrentPosition();
+      const { latitude, longitude } = location.coords;
+      this.currentLatitude = latitude;
+      this.currentLongitude = longitude;
+    } catch(error) {
+      this.currentLatitude = 4.6097102,
+      this.currentLongitude =  -74.081749
+      await this.presentAlert();
+    }
+  }
+
+  async presentPopover(event: Event): Promise<void> {
     const popover = await this.popoverCtrl.create({
       component: OptionsPopover,
       event
     });
     await popover.present();
+  }
+
+  async presentAlert(): Promise<void> {
+    const alert = await this.alertCtrl.create({
+      header: 'Permiso Geolocalización',
+      message: 'Es necesario que aceptes permiso, para una mejor experiencia',
+      buttons: ['ok']
+    });
+    await alert.present();
   }
 }

@@ -39,10 +39,16 @@ export class FormStorePage implements OnInit {
     this.pageTexts = await this.appLanguage.getPageTexts('formStorePage');
     this.formMessages = await this.appLanguage.getPageTexts('formMessages');
 
-    const location = await Geolocation.getCurrentPosition();
-    const { latitude, longitude } = location.coords;
-    this.currentLatitude = latitude;
-    this.currentLongitude = longitude;
+    try {
+      const location = await Geolocation.getCurrentPosition();
+      const { latitude, longitude } = location.coords;
+      this.currentLatitude = latitude;
+      this.currentLongitude = longitude;
+    } catch(error) {
+      this.currentLatitude = 4.6097102
+      this.currentLongitude = -74.081749;
+    }
+    
   }
 
   async createStore(): Promise<void> {
