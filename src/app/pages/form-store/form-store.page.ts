@@ -79,9 +79,9 @@ export class FormStorePage implements OnInit {
   private buildForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      nit: ['', [Validators.required, Validators.min(1000000000), Validators.max(9999999999)]],
-      cellPhone: ['', Validators.required],
-      localPhone: ['', Validators.required]
+      nit: ['', [Validators.required, Validators.min(100000), Validators.max(99999999999)]],
+      cellPhone: [''],
+      localPhone: ['']
     });
   }
 

@@ -40,6 +40,9 @@
     margin-right: .1rem;
   }
 }
+.required {
+  color: var(--ion-color-danger);
+}
 // Custom modal
 .my-custom-modal-css .modal-wrapper {
   height: 150px;

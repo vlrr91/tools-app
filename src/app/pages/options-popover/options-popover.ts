@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { Role } from 'src/app/interfaces/enums';
 import { User } from 'src/app/interfaces/user';
+import { UserService } from 'src/app/shared/services/user-firestore.service';
 
 @Component({
   templateUrl: './options-popover.html'
@@ -16,7 +17,8 @@ export class OptionsPopover implements OnInit {
     private popoverCtrl: PopoverController,
     private authService: AuthService,
     private dataStorageService: DataStorageService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private userService: UserService
   ) {}
 
   async ngOnInit() {
@@ -39,6 +41,7 @@ export class OptionsPopover implements OnInit {
         provider: this.user.provider
       }
       await this.dataStorageService.saveUser(updatedUser);
+      await this.userService.updateSelectedRole(this.user.uid, Role.Customer);
       this.navCtrl.navigateRoot(`${Role.Customer}`);
     }
 
@@ -52,6 +55,7 @@ export class OptionsPopover implements OnInit {
         provider: this.user.provider
       }
       await this.dataStorageService.saveUser(updatedUser);
+      await this.userService.updateSelectedRole(this.user.uid, Role.Ally);
       this.navCtrl.navigateRoot(`${Role.Ally}`);
     }
     await this.popoverCtrl.dismiss();

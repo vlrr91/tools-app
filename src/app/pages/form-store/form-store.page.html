@@ -13,7 +13,9 @@
       <form novalidate class="register-form" [formGroup]="form">
         <div>
           <ion-item class="form-field">
-            <ion-label class="field" position="stacked">{{pageTexts.name}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.name}}
+              <span class="required">*</span>
+            </ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="name"></ion-input>
           </ion-item>
           <div *ngIf="nameField.errors && nameField.touched">
@@ -25,7 +27,9 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.nit}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.nit}}
+              <span class="required">*</span>
+            </ion-label>
             <ion-input type="number" formControlName="nit"></ion-input>
           </ion-item>
           <div *ngIf="nitField.errors && nitField.touched">
@@ -53,24 +57,12 @@
             <ion-label class="field" position="stacked">Celular</ion-label>
             <ion-input type="number" formControlName="cellPhone"></ion-input>
           </ion-item>
-          <div *ngIf="cellPhoneField.errors && cellPhoneField.touched">
-            <ion-text class="form-error" color="danger" *ngIf="cellPhoneField.hasError('required')">
-                <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{formMessages.requiredField}}</span>
-            </ion-text>
-          </div>
         </div>
         <div class="form-field">
           <ion-item>
             <ion-label class="field" position="stacked">Telefono</ion-label>
             <ion-input type="number" formControlName="localPhone"></ion-input>
           </ion-item>
-          <div *ngIf="localPhoneField.errors && localPhoneField.touched">
-            <ion-text class="form-error" color="danger" *ngIf="localPhoneField.hasError('required')">
-                <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{formMessages.requiredField}}</span>
-            </ion-text>
-          </div>
         </div>
         <ion-button
           type="submit"

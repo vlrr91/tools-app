@@ -12,7 +12,7 @@
         <div class="form-field">
           <ion-item>
             <ion-label class="field" position="stacked">
-              {{pageTexts.email}}
+              {{pageTexts.email}} <span class="required">*</span>
             </ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.pass}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.pass}} <span class="required">*</span></ion-label>
             <ion-input type="password" formControlName="pass"></ion-input>
           </ion-item>
           <div *ngIf="passwordField.errors && passwordField.touched">

@@ -12,8 +12,8 @@
   <form novalidate [formGroup]="formModal">
     <div class="form-field">
       <ion-item>
-        <ion-label position="stacked">
-          {{emailText}}
+        <ion-label position="stacked" class="field">
+          {{emailText}} <span class="required">*</span>
         </ion-label>
         <ion-input type="email" formControlName="emailModal"></ion-input>
       </ion-item>

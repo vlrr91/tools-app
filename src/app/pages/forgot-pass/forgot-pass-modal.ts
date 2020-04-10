@@ -7,7 +7,8 @@ const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*
 
 @Component({
   selector: 'app-pass-modal',
-  templateUrl: './forgot-pass-modal.html'
+  templateUrl: './forgot-pass-modal.html',
+  styleUrls: ['./forgot-pass-modal.scss']
 })
 export class ForgotPassModalComponent {
   formModal: FormGroup;
@@ -33,6 +34,7 @@ export class ForgotPassModalComponent {
     this.emailInvalidErrorText = navParams.get('emailInvalidErrorText');
     this.requiredFieldErrorText = navParams.get('requiredFieldErrorText');
     this.messageSendText = navParams.get('messageSendText');
+    console.log('emailyext', this.emailText)
 
     this.buildFormModal();
   }

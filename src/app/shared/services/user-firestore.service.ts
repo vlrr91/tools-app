@@ -39,4 +39,10 @@ export class UserService {
   getUser(uid: string): Observable<User> {
    return this.afs.doc<User>(`users/${uid}`).valueChanges();
   }
+
+  updateSelectedRole(id: string, role: string): Promise<void> {
+    return this.usersCollection.doc<User>(id).update({
+      selectedRole: role
+    });
+  }
 }

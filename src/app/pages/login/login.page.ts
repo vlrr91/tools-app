@@ -72,7 +72,7 @@ export class LoginPage implements OnInit {
         'modalTitle': this.formMessages.resetPass,
         'modalCloseBtnText': this.formMessages.closeButton,
         'modalSendBtnText': this.formMessages.sendButton,
-        'emailText': this.pageTexts.emailText,
+        'emailText': this.pageTexts.email,
         'emailInvalidErrorText': this.formMessages.emailInvalid,
         'requiredFieldErrorText': this.formMessages.requiredField,
         'messageSendText': this.formMessages.messageSend

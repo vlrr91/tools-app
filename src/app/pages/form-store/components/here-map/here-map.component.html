@@ -1,7 +1,9 @@
 <div class="form-field address">
   <div class="form-address">
     <ion-item>
-      <ion-label class="field" position="stacked">Dirección</ion-label>
+      <ion-label class="field" position="stacked">Dirección
+        <span class="required">*</span>
+      </ion-label>
       <ion-input type="text" [formControl]="addressCtrl"></ion-input>
     </ion-item>
     <ion-button (click)="validateAddress($event)" type="button" fill="outline">

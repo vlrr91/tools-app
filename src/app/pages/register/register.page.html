@@ -12,7 +12,9 @@
       <form novalidate class="register-form" [formGroup]="form">
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.firstName}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.firstName}}
+              <span class="required">*</span>
+            </ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="firstName"></ion-input>
           </ion-item>
           <div *ngIf="firstNameField.errors && firstNameField.touched">
@@ -24,7 +26,9 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.lastName}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.lastName}}
+              <span class="required">*</span>
+            </ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="lastName"></ion-input>
           </ion-item>
           <div *ngIf="lastNameField.errors && lastNameField.touched">
@@ -36,7 +40,9 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.email}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.email}}
+              <span class="required">*</span>
+            </ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
           <div *ngIf="emailField.errors && emailField.touched">
@@ -52,7 +58,9 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.pass}}</ion-label>
+            <ion-label class="field" position="stacked">{{pageTexts.pass}}
+              <span class="required">*</span>
+            </ion-label>
             <ion-input type="password" formControlName="pass"></ion-input>
           </ion-item>
           <div *ngIf="passField.errors && passField.touched">
