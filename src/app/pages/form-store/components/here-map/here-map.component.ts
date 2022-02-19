@@ -17,7 +17,7 @@ export class HereMapComponent implements OnInit {
   @Input() addressText: string;
   @Input() validateBtnText: string;
   @Input() requiredText: string;
-  @ViewChild("map", { static: false }) public mapElement: ElementRef;
+  @ViewChild("map") public mapElement: ElementRef;
   addressCtrl: FormControl;
   private platform: any;
   private map: any;

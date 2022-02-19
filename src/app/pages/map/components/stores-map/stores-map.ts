@@ -14,7 +14,7 @@ declare var H: any;
 })
 export class StoresMap implements OnInit {
   @Input() stores: Array<Store>;
-  @ViewChild("storesMap", { static: false }) public mapElement: ElementRef;
+  @ViewChild("storesMap") public mapElement: ElementRef;
   @Input() currentLatitude: number;
   @Input() currentLongitude: number;
   private platform: any;
