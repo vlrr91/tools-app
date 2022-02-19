@@ -10,8 +10,7 @@
   <ion-slides 
     #slides 
     (ionSlideWillChange)="onSlideChangeStart($event)"
-    pager={true}
-    *ngIf="pageTexts">
+    pager={true}>
     <ion-slide class="slide">
       <h2>Tools</h2>
       <img src="assets/img/slide1.svg" alt="">
@@ -25,9 +24,10 @@
       <img class="slide3" src="assets/img/slide3.svg" alt="">
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit</p>
       <ion-button fill="clear" (click)="startApp()">
-        {{pageTexts.continueButton}}
+        Continuar
         <ion-icon slot="end" name="arrow-forward"></ion-icon>
       </ion-button>
     </ion-slide>
   </ion-slides>
 </ion-content>
+

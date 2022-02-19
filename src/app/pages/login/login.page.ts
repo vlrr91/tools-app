@@ -13,23 +13,15 @@ const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   form: FormGroup;
-  pageTexts: any;
-  formMessages: any;
   
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
-    private appLanguage: AppLanguageService,
     public modalCtrl: ModalController
   ) {
     this.buildForm();
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.pageTexts = await this.appLanguage.getPageTexts('loginPage');
-    this.formMessages = await this.appLanguage.getPageTexts('formMessages');
   }
 
   emailAndPasswordLogin(event: Event): void {
@@ -69,13 +61,13 @@ export class LoginPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: ForgotPassModalComponent,
       componentProps: {
-        'modalTitle': this.formMessages.resetPass,
-        'modalCloseBtnText': this.formMessages.closeButton,
-        'modalSendBtnText': this.formMessages.sendButton,
-        'emailText': this.pageTexts.email,
-        'emailInvalidErrorText': this.formMessages.emailInvalid,
-        'requiredFieldErrorText': this.formMessages.requiredField,
-        'messageSendText': this.formMessages.messageSend
+        'modalTitle': 'Recuperar contraseña',
+        'modalCloseBtnText': 'Cerrar',
+        'modalSendBtnText': 'Enviar',
+        'emailText': 'email',
+        'emailInvalidErrorText': 'email invalido',
+        'requiredFieldErrorText': 'texto requerido',
+        'messageSendText': 'Se envio con exito'
       }
     });
     return modal.present();

@@ -11,9 +11,9 @@ const { Storage } = Plugins;
   templateUrl: './welcome.page.html',
   styleUrls: ['./welcome.page.scss'],
 })
-export class WelcomePage implements OnInit {
+export class WelcomePage {
   showSkip = true;
-  pageTexts: any;
+  continueButton = "Continuar";
 
   @ViewChild('slides', { static: true }) slides: IonSlides;
 
@@ -23,9 +23,6 @@ export class WelcomePage implements OnInit {
     private navCtrl: NavController
   ) { }
 
-  async ngOnInit() {
-    this.pageTexts = await this.appLanguage.getPageTexts('welcomePage');
-  }
 
   async startApp(): Promise<void> {
     await this.navCtrl.navigateRoot('/login');

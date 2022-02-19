@@ -7,12 +7,12 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="login-page ion-padding">
-    <div class="form-content" *ngIf="pageTexts && formMessages">
+    <div class="form-content" *ngIf="formMessages">
       <form novalidate class="login-form" [formGroup]="form" (ngSubmit)="emailAndPasswordLogin($event)">
         <div class="form-field">
           <ion-item>
             <ion-label class="field" position="stacked">
-              {{pageTexts.email}} <span class="required">*</span>
+              Correo: <span class="required">*</span>
             </ion-label>
             <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
@@ -29,7 +29,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.pass}} <span class="required">*</span></ion-label>
+            <ion-label class="field" position="stacked">Contraseña<span class="required">*</span></ion-label>
             <ion-input type="password" formControlName="pass"></ion-input>
           </ion-item>
           <div *ngIf="passwordField.errors && passwordField.touched">
@@ -47,7 +47,7 @@
           type="submit" 
           class="login-button"
           expand="block"
-          fill="outline">{{pageTexts.loginButton}}</ion-button>
+          fill="outline">Iniciar Sesión</ion-button>
         <ion-text class="form-error" color="danger" *ngIf="authService.errorMessage">
           <ion-icon name="alert-circle-outline"></ion-icon>
           <span>{{authService.errorMessage}}</span>
@@ -56,7 +56,7 @@
       
       <div class="login-forgot">
         <ion-text class="forgot-text ion-text-center" color="primary">
-          <p (click)="presentModal()">{{pageTexts.forgotPass}}</p>
+          <p (click)="presentModal()">Recuperar contraseña</p>
         </ion-text>
       </div>
 
@@ -77,7 +77,7 @@
 
       <div class="login-register">
         <ion-text class="register-text ion-text-center">
-          <h4>{{pageTexts.newHere}} <span [routerLink]="['/register']">{{pageTexts.register}}</span></h4>
+          <h4>Registrese <span [routerLink]="['/register']">aqui</span></h4>
         </ion-text>
       </div>
     </div>
