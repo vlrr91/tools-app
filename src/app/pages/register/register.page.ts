@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 
 import { AuthService } from '../../shared/services/auth.service';
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -11,22 +10,14 @@ const regexValidateEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class RegisterPage {
   form: FormGroup;
-  pageTexts: any;
-  formMessages: any;
 
   constructor(
     private formBuilder: FormBuilder,
     public authService: AuthService,
-    private appLanguageService: AppLanguageService
   ) {
     this.buildForm();
-  }
-
-  async ngOnInit(): Promise<void> {
-    this.pageTexts = await this.appLanguageService.getPageTexts('registerPage');
-    this.formMessages = await this.appLanguageService.getPageTexts('formMessages');
   }
 
   createUser(): void {

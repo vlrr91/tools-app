@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Platform, NavController } from "@ionic/angular";
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { Facebook } from '@ionic-native/facebook/ngx';
 import { DataStorageService } from './data-storage.service';
-import * as firebase from 'firebase/app';
-import { Observable, Subscription } from 'rxjs';
+import firebase from 'firebase/compat/app';
+import { Subscription } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { UserService } from 'src/app/shared/services/user.service';
@@ -16,7 +16,7 @@ import { Provider } from '../../interfaces/enums';
   providedIn: 'root'
 })
 export class AuthService {
-  user: Observable<firebase.User>;
+  user: any;
   private static TAG: string = "AuthServiceError";
   errorMessage: string;
 
@@ -47,7 +47,7 @@ export class AuthService {
         'offline': true,
         'scopes': 'profile email'
       });
-      const firebaseUser = await this.afAuth.auth.signInWithCredential(
+      const firebaseUser = await this.afAuth.signInWithCredential(
         firebase.auth.GoogleAuthProvider.credential(gPlusUser.idToken)
       );
       const sub = this.userService.getUser(firebaseUser.user.uid)
@@ -62,7 +62,7 @@ export class AuthService {
   async webGoogleLogin(): Promise<void> {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
-      const firebaseUser = await this.afAuth.auth.signInWithPopup(provider);
+      const firebaseUser = await this.afAuth.signInWithPopup(provider);
       const sub = this.userService.getUser(firebaseUser.user.uid)
         .subscribe(
           async u => await this.validateUserFirestore(u, firebaseUser.user, sub, Provider.Google) 
@@ -83,7 +83,7 @@ export class AuthService {
   async nativeFacebookLogin() {
     try {
       const facebookUser = await this.facebook.login(['public_profile', 'email']);
-      const firebaseUser = await this.afAuth.auth.signInWithCredential(
+      const firebaseUser = await this.afAuth.signInWithCredential(
         firebase.auth.FacebookAuthProvider.credential(facebookUser.authResponse.accessToken)
       );
       const sub = this.userService.getUser(firebaseUser.user.uid)
@@ -98,7 +98,7 @@ export class AuthService {
   async webFacebookLogin() {
     try {
       const provider = new firebase.auth.FacebookAuthProvider();
-      const firebaseUser = await this.afAuth.auth.signInWithPopup(provider);
+      const firebaseUser = await this.afAuth.signInWithPopup(provider);
       const sub = this.userService.getUser(firebaseUser.user.uid)
         .subscribe(
           async u => await this.validateUserFirestore(u, firebaseUser.user, sub, Provider.Facebook)
@@ -110,7 +110,7 @@ export class AuthService {
 
   async emailAndPasswordLogin(email: string, password: string) {
     try {
-      const firebaseUser = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      const firebaseUser = await this.afAuth.signInWithEmailAndPassword(email, password);
       const sub = this.userService.getUser(firebaseUser.user.uid)
         .subscribe(
           async u => {
@@ -121,11 +121,9 @@ export class AuthService {
         );
     } catch(err) {
       if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
-        const texts = await this.dataStorageService.getTextsApplication();
-        this.errorMessage = texts.formMessages.userOrPassInvalid;
+        this.errorMessage = 'Usuario o contraseña inválida';
       } else if (err.code === 'auth/too-many-requests') {
-        const texts = await this.dataStorageService.getTextsApplication();
-        this.errorMessage = texts.formMessages.manyRequest;
+        this.errorMessage = 'Error, se supero el limite de intentos';
       } else {
         console.error(`${AuthService.TAG}/emailAndPasswordLogin: ${err}`);
       }
@@ -134,7 +132,7 @@ export class AuthService {
 
   async createUser(firstName: string, lastName: string, email: string, pass: string) {
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(email, pass);
+      await this.afAuth.createUserWithEmailAndPassword(email, pass);
       const subscription = this.user.subscribe(async firebaseUser => {
         if (firebaseUser) {
           const displayName = `${firstName.toLowerCase().trim()} ${lastName.toLowerCase().trim()}`;
@@ -156,7 +154,7 @@ export class AuthService {
     } catch(err) {
       if (err.code === 'auth/email-already-in-use') {
         const texts = await this.dataStorageService.getTextsApplication();
-        this.errorMessage = texts.formMessages.emailInUse;
+        this.errorMessage = 'El email se encuentra en uso';
       }
       console.error(`${AuthService.TAG}/createUser: ${err}`);
     }
@@ -165,7 +163,7 @@ export class AuthService {
   async logout(): Promise<void> {
     try {
       const user = await this.dataStorageService.getUser();
-      await this.afAuth.auth.signOut();
+      await this.afAuth.signOut();
       if (this.platform.is('hybrid')) {
         if (user.provider === Provider.Google) {
           this.gPlus.logout();
@@ -204,7 +202,7 @@ export class AuthService {
 
   async forgotPassword(email: string): Promise<void> {
     try {
-      await this.afAuth.auth.sendPasswordResetEmail(email);
+      await this.afAuth.sendPasswordResetEmail(email);
     } catch(err) {
       console.error(`${AuthService.TAG}/forgotPassword: ${err}`);
     }

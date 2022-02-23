@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { Provider } from 'src/app/interfaces/enums'; 
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
+import { Provider } from 'src/app/interfaces/enums';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 
 @Component({
@@ -13,13 +12,10 @@ import { DataStorageService } from 'src/app/shared/services/data-storage.service
 export class CustomerPage implements OnInit {
   emailVerified: boolean = true;
   sendEmail: boolean = false;
-  pageTexts: any;
-  tabsTexts: any;
 
   constructor(
     private authService: AuthService,
-    private dataStorageService: DataStorageService,
-    private appLanguageService: AppLanguageService 
+    private dataStorageService: DataStorageService
   ) {}
 
   async ngOnInit() {
@@ -27,10 +23,6 @@ export class CustomerPage implements OnInit {
     if (user.provider === Provider.Email) {
       this.validateEmailState();
     }
-    const pageTexts = await this.appLanguageService.getPageTexts('customerPage');
-    const tabsTexts = await this.appLanguageService.getPageTexts('tabsTexts');
-    this.pageTexts = pageTexts;
-    this.tabsTexts = tabsTexts;
   }
 
   sendVerificationEmail() {

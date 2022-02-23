@@ -39,7 +39,6 @@ export class StorePage implements OnInit {
       this.storeService.getStore(id).subscribe(
         store => {
           if (store) {
-            console.log(store)
             this.isLoading = false;
             this.store = store;
             this.products = store.products;

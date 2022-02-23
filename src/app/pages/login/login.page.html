@@ -7,7 +7,7 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="login-page ion-padding">
-    <div class="form-content" *ngIf="formMessages">
+    <div class="form-content">
       <form novalidate class="login-form" [formGroup]="form" (ngSubmit)="emailAndPasswordLogin($event)">
         <div class="form-field">
           <ion-item>
@@ -19,11 +19,11 @@
           <div *ngIf="emailField.errors && emailField.touched">
             <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{formMessages.requiredField}}</span>
+                <span>Este campo es requerido</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="emailField.hasError('pattern')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{formMessages.emailInvalid}}</span>
+                <span>Este campo es requerido</span>
             </ion-text>
           </div>
         </div>
@@ -35,11 +35,11 @@
           <div *ngIf="passwordField.errors && passwordField.touched">
             <ion-text class="form-error" color="danger" *ngIf="passwordField.hasError('required')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{formMessages.requiredField}}</span>
+              <span>Este campo es requerido</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="passwordField.hasError('minlength')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{formMessages.passLength}}</span>
+              <span>Este campo es requerido</span>
             </ion-text>
           </div>
         </div>
@@ -50,7 +50,7 @@
           fill="outline">Iniciar Sesión</ion-button>
         <ion-text class="form-error" color="danger" *ngIf="authService.errorMessage">
           <ion-icon name="alert-circle-outline"></ion-icon>
-          <span>{{authService.errorMessage}}</span>
+          <span>Usuario o contraseña invalido</span>
         </ion-text>
       </form>
       

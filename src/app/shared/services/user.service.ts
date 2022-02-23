@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/firestore";
+import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
 
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { User } from '../../interfaces/user';
 import { Role } from 'src/app/interfaces/enums';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
@@ -31,6 +31,7 @@ export class UserService {
       selectedRole: Role.Customer,
       provider,
     }
+    console.log(user, 1234);
     await this.usersCollection.doc(uid).set(newUser);
     await this.dataStorage.saveUser(newUser);
     return newUser;

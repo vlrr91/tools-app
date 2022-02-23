@@ -18,7 +18,7 @@ export class MapTabPage implements OnInit {
   stores: Array<Store>;
   currentLatitude: number;
   currentLongitude: number;
-  titleText: string;
+  titleText = 'Mapa';
 
   constructor(
     private popoverCtrl: PopoverController,
@@ -29,8 +29,6 @@ export class MapTabPage implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getCurrentPosition();
-    const pageTexts = await this.appLanguageService.getPageTexts('others');
-    this.titleText = pageTexts.titleMapPage;
 
     this.storeService.getAllStores().subscribe(
       stores => {
@@ -61,11 +59,8 @@ export class MapTabPage implements OnInit {
   }
 
   async presentAlert(): Promise<void> {
-    const texts = await this.appLanguageService.getPageTexts('others');
-    const alertMessage = texts.alertMessage;
-
     const alert = await this.alertCtrl.create({
-      message: alertMessage,
+      message: 'Active permisos de geolocalización',
       buttons: ['ok']
     });
     await alert.present();

@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { AngularFireRemoteConfig } from '@angular/fire/remote-config';
-import { Plugins } from "@capacitor/core"  ;
-
-const { Storage } = Plugins;
+import { AngularFireRemoteConfig } from '@angular/fire/compat/remote-config';
+import { Storage } from "@capacitor/storage"  ;
 
 @Injectable({
   providedIn: 'root'

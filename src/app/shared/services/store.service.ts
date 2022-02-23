@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Store } from 'src/app/interfaces/store';
 import { Product } from 'src/app/interfaces/products';
 
@@ -16,7 +15,7 @@ export class StoreService {
     this.storeCollection = this.afs.collection<Store>('stores');
   }
 
-  getStore(id: string): Observable<Store> {
+  getStore(id: string) {
     return this.storeCollection.doc<Store>(id).valueChanges();
   }
 
@@ -26,13 +25,14 @@ export class StoreService {
     return store;
   }
 
-  getAllStores(): Observable<Array<Store>> {
+  getAllStores() {
     return this.storeCollection.valueChanges();
   }
 
   async saveProduct(idStore: string, product: Product): Promise<Product> {
+    const newProduct = firebase.firestore.FieldValue.arrayUnion(product) as unknown as Product[]
     await this.storeCollection.doc(idStore).update({
-      products: firebase.firestore.FieldValue.arrayUnion(product)
+      products: newProduct
     });
     return product;
   }

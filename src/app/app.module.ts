@@ -17,21 +17,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { OptionsPopover } from './pages/options-popover/options-popover';
 
 @NgModule({
-  declarations: [AppComponent, OptionsPopover],
-  entryComponents: [OptionsPopover],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(),
-    AppRoutingModule,
-    FirebaseModule,
-  ],
-  providers: [
-    GooglePlus,
-    Facebook,
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, OptionsPopover],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        FirebaseModule,
+    ],
+    providers: [
+        GooglePlus,
+        Facebook,
+        StatusBar,
+        SplashScreen,
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

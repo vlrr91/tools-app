@@ -13,7 +13,6 @@ import { AppLanguageService } from 'src/app/shared/services/app-language.service
 })
 export class AccountPage implements OnInit {
   user: User;
-  pageTexts: any;
 
   constructor(
     private popoverCtrl: PopoverController,
@@ -25,9 +24,6 @@ export class AccountPage implements OnInit {
   async ngOnInit(): Promise<void> {
     const user = await this.dataStorageService.getUser();
     this.user = user;
-
-    const pageTexts = await this.appLanguageService.getPageTexts('others');
-    this.pageTexts = pageTexts;
   }
 
   async presentPopover(event: Event) {

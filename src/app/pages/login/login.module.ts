@@ -8,18 +8,17 @@ import { LoginPage } from './login.page';
 import { ForgotPassModalComponent } from '../forgot-pass/forgot-pass-modal';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    IonicModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: LoginPage
-      },
-    ]),
-    ReactiveFormsModule,
-  ],
-  declarations: [LoginPage, ForgotPassModalComponent],
-  entryComponents: [ForgotPassModalComponent]
+    imports: [
+        CommonModule,
+        IonicModule,
+        RouterModule.forChild([
+            {
+                path: '',
+                component: LoginPage
+            },
+        ]),
+        ReactiveFormsModule,
+    ],
+    declarations: [LoginPage, ForgotPassModalComponent]
 })
 export class LoginPageModule {}

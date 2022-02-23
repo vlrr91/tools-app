@@ -34,7 +34,6 @@ export class ForgotPassModalComponent {
     this.emailInvalidErrorText = navParams.get('emailInvalidErrorText');
     this.requiredFieldErrorText = navParams.get('requiredFieldErrorText');
     this.messageSendText = navParams.get('messageSendText');
-    console.log('emailyext', this.emailText)
 
     this.buildFormModal();
   }
