@@ -7,7 +7,6 @@ import { DataStorageService } from 'src/app/shared/services/data-storage.service
 import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
 import { Product } from 'src/app/interfaces/products';
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'app-store',
@@ -19,20 +18,16 @@ export class StorePage implements OnInit {
   products: Array<Product>;
   isLoading: boolean = true;
   storeOwner: boolean;
-  pageTexts: any;
 
   constructor(
     private popoverCtrl: PopoverController,
     private dataStorageService: DataStorageService,
     private storeService: StoreService,
     private router: ActivatedRoute,
-    private appLanguageService: AppLanguageService
   ) { }
 
   async ngOnInit() {
     const id = this.router.snapshot.paramMap.get('id');
-    const pageTexts = await this.appLanguageService.getPageTexts('storePage');
-    this.pageTexts = pageTexts;
     
     if (id) {
       this.storeOwner = false;

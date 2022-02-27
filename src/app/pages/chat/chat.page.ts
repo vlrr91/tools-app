@@ -33,9 +33,7 @@ export class ChatPage implements OnInit {
   async ngOnInit(): Promise<void> {
     const userLocal = await this.dataStorageService.getUser();
     this.user = userLocal;
-
-    const texts = await this.appLanguageService.getPageTexts('others');
-    this.writeMessageText = texts.writeMessage;
+    this.writeMessageText = 'escibe aqui tu mensaje';
 
     const idReceiver = this.router.snapshot.paramMap.get('idReceiver');
     const sub = this.userService.getUser(idReceiver).subscribe(

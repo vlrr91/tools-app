@@ -3,17 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="pageTexts">{{pageTexts.titleFormStore}}</ion-title>
+    <ion-title>Crear tienda</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="page-content">
-    <div class="form-page" *ngIf="pageTexts && formMessages"> 
+    <div class="form-page"> 
       <form novalidate class="register-form" [formGroup]="form">
         <div>
           <ion-item class="form-field">
-            <ion-label class="field" position="stacked">{{pageTexts.name}}
+            <ion-label class="field" position="stacked">Nombre
               <span class="required">*</span>
             </ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="name"></ion-input>
@@ -21,13 +21,13 @@
           <div *ngIf="nameField.errors && nameField.touched">
             <ion-text class="form-error" color="danger" *ngIf="nameField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{formMessages.requiredField}}</span>
+                <span>Este campo es requerido</span>
             </ion-text>
           </div>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.nit}}
+            <ion-label class="field" position="stacked">Nit
               <span class="required">*</span>
             </ion-label>
             <ion-input type="number" formControlName="nit"></ion-input>
@@ -35,15 +35,15 @@
           <div *ngIf="nitField.errors && nitField.touched">
             <ion-text class="form-error" color="danger" *ngIf="nitField.hasError('required')">
                 <ion-icon name="alert-circle-outline"></ion-icon>
-                <span>{{formMessages.requiredField}}</span>
+                <span>Este campo es requerido</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="nitField.hasError('min')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{formMessages.nitMinLength}}</span>
+              <span></span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="nitField.hasError('max')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>{{formMessages.nitMaxLength}}</span>
+              <span>El nit debe ser mas largo</span>
             </ion-text>
           </div>
         </div>
@@ -53,21 +53,21 @@
             (location)="getLocation($event)"
             [currentLatitude]="currentLatitude"
             [currentLongitude]="currentLongitude"
-            [addressText]="pageTexts.address"
-            [validateBtnText]="pageTexts.validateButton"
-            [requiredText]="formMessages.requiredField">
+            addressText="Dirección"
+            validateBtnText="Confirmar"
+          >
           </here-map>
         </div>
 
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.mobile}}</ion-label>
+            <ion-label class="field" position="stacked">Celular</ion-label>
             <ion-input type="number" formControlName="cellPhone"></ion-input>
           </ion-item>
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.phone}}</ion-label>
+            <ion-label class="field" position="stacked">Telefono</ion-label>
             <ion-input type="number" formControlName="localPhone"></ion-input>
           </ion-item>
         </div>
@@ -76,7 +76,7 @@
           class="form-store-btn ion-margin-top"
           (click)="createStore()" 
           expand="block" 
-          fill="outline">{{pageTexts.createStoreButton}}</ion-button>
+          fill="outline">Crear tienda</ion-button>
       </form>
     </div>
   </div>

@@ -3,17 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="pageTexts">{{pageTexts.title}}</ion-title>
+    <ion-title>Crear producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="form-content">
     <form novalidate [formGroup]="form">
-      <div *ngIf="pageTexts">
+      <div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.name}}
+            <ion-label class="field" position="stacked">Nombre
               <span class="required">*</span>
             </ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="name"></ion-input>
@@ -27,7 +27,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.price}}
+            <ion-label class="field" position="stacked">Precio
               <span class="required">*</span>
             </ion-label>
             <ion-input class="ion-text-capitalize" type="number" formControlName="price"></ion-input>
@@ -41,7 +41,7 @@
         </div>
         <div class="form-field">
           <ion-item>
-            <ion-label class="field" position="stacked">{{pageTexts.quantity}}
+            <ion-label class="field" position="stacked">Cantidad
               <span class="required">*</span>
             </ion-label>
             <ion-input class="ion-text-capitalize" type="text" formControlName="quantity"></ion-input>
@@ -54,7 +54,7 @@
           </div>
         </div>
         <ion-button expand="block" fill="outline" class="form-product-button ion-margin-top" (click)="saveProduct()" type="submit">
-          {{pageTexts.saveButton}}
+          Guardar
         </ion-button>
       </div>
     </form> 

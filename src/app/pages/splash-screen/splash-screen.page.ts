@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
+import { Storage } from '@capacitor/storage';
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-
-const { Storage } = Plugins;
 
 @Component({
   selector: 'app-splash-screen',

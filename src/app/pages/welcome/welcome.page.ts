@@ -1,10 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController, IonSlides, NavController } from "@ionic/angular";
-import { Plugins } from '@capacitor/core';
+import { Storage } from '@capacitor/storage';
 
 import { AppLanguageService } from 'src/app/shared/services/app-language.service';
-
-const { Storage } = Plugins;
 
 @Component({
   selector: 'app-welcome',

@@ -5,7 +5,6 @@ import { DataStorageService } from 'src/app/shared/services/data-storage.service
 import { Role } from 'src/app/interfaces/enums';
 import { User } from 'src/app/interfaces/user';
 import { UserService } from 'src/app/shared/services/user.service';
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   templateUrl: './options-popover.html'
@@ -13,7 +12,6 @@ import { AppLanguageService } from 'src/app/shared/services/app-language.service
 export class OptionsPopover implements OnInit {
   toRole: string;
   user: User;
-  logoutText: string;
 
   constructor(
     private popoverCtrl: PopoverController,
@@ -21,18 +19,15 @@ export class OptionsPopover implements OnInit {
     private dataStorageService: DataStorageService,
     private navCtrl: NavController,
     private userService: UserService,
-    private appLanguageService: AppLanguageService
   ) {}
 
   async ngOnInit() {
     this.user = await this.dataStorageService.getUser();
-    const texts = await this.appLanguageService.getPageTexts('others');
-    this.logoutText = texts.logout;
 
     if (this.user.selectedRole === Role.Customer) {
-      this.toRole = texts.switchAlly;
+      this.toRole = 'Aliado';
     } else {
-      this.toRole = texts.switchCustomer;
+      this.toRole = 'usuario';
     }
   }
 

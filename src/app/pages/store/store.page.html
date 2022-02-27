@@ -8,12 +8,12 @@
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title *ngIf="pageTexts">{{pageTexts.title}}</ion-title>
+    <ion-title>Tienda</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" *ngIf="!isLoading">
   <div class="not-store" *ngIf="!store">
-    <p *ngIf="pageTexts">{{pageTexts.details}}</p>
+    <p>Ingrese los productos de la tienda</p>
     <ion-button routerLink="/form-store" fill="outline">
       <ion-icon slot="start" name="clipboard-outline"></ion-icon>
       Click
@@ -58,7 +58,7 @@
         </ion-avatar>
         <ion-label>
           <h3 class="product-title">{{product.name}}</h3>
-          <p class="product-info" *ngIf="pageTexts">{{product.quantity}} {{pageTexts.units}}- {{product.price | currency:'COP'}}</p>
+          <p class="product-info">{{product.quantity}} unidad(es)- {{product.price | currency:'COP'}}</p>
         </ion-label>
       </ion-item>
     </ion-list>

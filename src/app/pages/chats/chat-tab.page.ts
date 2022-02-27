@@ -24,6 +24,7 @@ export class ChatTabPage implements OnInit {
     this.chatService.getAllChatByUser(user.uid).subscribe(
       chats => {
         if (chats) {
+          console.log(12, chats);
           this.chats = chats;
         }
       }

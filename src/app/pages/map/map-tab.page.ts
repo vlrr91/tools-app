@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, AlertController } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
+import { Geolocation } from '@capacitor/geolocation';
 
 import { OptionsPopover } from '../options-popover/options-popover';
 import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
-
-const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-map-tab',
@@ -24,7 +21,6 @@ export class MapTabPage implements OnInit {
     private popoverCtrl: PopoverController,
     private storeService: StoreService,
     private alertCtrl: AlertController,
-    private appLanguageService: AppLanguageService
   ) { }
 
   async ngOnInit(): Promise<void> {

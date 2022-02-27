@@ -1,37 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 import { NavController } from "@ionic/angular";
 
 import { StoreService } from 'src/app/shared/services/store.service';
 import { Product } from 'src/app/interfaces/products';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 
 @Component({
   selector: 'app-form-product',
   templateUrl: './form-product.page.html',
   styleUrls: ['./form-product.page.scss'],
 })
-export class FormProductPage implements OnInit {
+export class FormProductPage {
   form: FormGroup;
-  pageTexts: any;
-  requiredText: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private storeService: StoreService,
     private dataStorageService: DataStorageService,
     private navCtrl: NavController,
-    private appLanguageService: AppLanguageService
   ) {
     this.buildForm();
-  }
-
-  async ngOnInit(): Promise<void> {
-    const pageTexts = await this.appLanguageService.getPageTexts('formProductPage');
-    const formMessages = await this.appLanguageService.getPageTexts('formMessages');
-    this.pageTexts = pageTexts;
-    this.requiredText = formMessages.requiredField;
   }
 
   private buildForm(): void {

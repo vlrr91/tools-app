@@ -1,16 +1,13 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Plugins } from "@capacitor/core";
+import { Geolocation } from "@capacitor/geolocation";
 
-import { AppLanguageService } from 'src/app/shared/services/app-language.service';
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
 import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
 import { User } from 'src/app/interfaces/user';
 import { Product } from 'src/app/interfaces/products';
-
-const { Geolocation } = Plugins;
 
 @Component({
   selector: 'app-form-store',
@@ -19,15 +16,12 @@ const { Geolocation } = Plugins;
 })
 export class FormStorePage implements OnInit {
   form: FormGroup;
-  pageTexts: any;
-  formMessages: any;
   location: any;
   currentLatitude: number;
   currentLongitude: number;
 
   constructor(
     private formBuilder: FormBuilder,
-    private appLanguage: AppLanguageService,
     private navCtrl: NavController,
     private storeService: StoreService,
     private dataStorageService: DataStorageService
@@ -36,9 +30,6 @@ export class FormStorePage implements OnInit {
   }
 
   async ngOnInit() {
-    this.pageTexts = await this.appLanguage.getPageTexts('formStorePage');
-    this.formMessages = await this.appLanguage.getPageTexts('formMessages');
-
     try {
       const location = await Geolocation.getCurrentPosition();
       const { latitude, longitude } = location.coords;
