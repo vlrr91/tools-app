@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { RouteReuseStrategy } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { FirebaseModule } from './firebase.module';
 
@@ -23,6 +24,7 @@ import { OptionsPopover } from './pages/options-popover/options-popover';
         IonicModule.forRoot(),
         AppRoutingModule,
         FirebaseModule,
+        HttpClientModule,
     ],
     providers: [
         GooglePlus,

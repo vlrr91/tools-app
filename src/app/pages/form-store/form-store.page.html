@@ -39,11 +39,15 @@
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="nitField.hasError('min')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span></span>
+              <span>El nit debe ser mas largo</span>
             </ion-text>
             <ion-text class="form-error" color="danger" *ngIf="nitField.hasError('max')">
               <ion-icon name="alert-circle-outline"></ion-icon>
-              <span>El nit debe ser mas largo</span>
+              <span>El nit debe ser mas corto</span>
+            </ion-text>
+            <ion-text class="form-error" color="danger" *ngIf="nitField.hasError('invalid')">
+              <ion-icon name="alert-circle-outline"></ion-icon>
+              <span>Este NIT no esta registrado</span>
             </ion-text>
           </div>
         </div>

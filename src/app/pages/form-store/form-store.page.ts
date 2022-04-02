@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Geolocation } from "@capacitor/geolocation";
 
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
@@ -8,6 +8,8 @@ import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
 import { User } from 'src/app/interfaces/user';
 import { Product } from 'src/app/interfaces/products';
+import { Observable } from 'rxjs';
+import { NitValidatorService } from './nitValidator';
 
 @Component({
   selector: 'app-form-store',
@@ -24,7 +26,8 @@ export class FormStorePage implements OnInit {
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private storeService: StoreService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
+    private nitValidator: NitValidatorService,
   ) {
     this.buildForm();
   }
@@ -70,7 +73,11 @@ export class FormStorePage implements OnInit {
   private buildForm(): void {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      nit: ['', [Validators.required, Validators.min(100000), Validators.max(99999999999)]],
+      nit: [
+        '',
+        [Validators.required, Validators.min(100000), Validators.max(99999999999)],
+        [this.nitValidator.isValidNIT()]
+      ],
       cellPhone: [''],
       localPhone: ['']
     });

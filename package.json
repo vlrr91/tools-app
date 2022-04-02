@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "mock:server": "json-server --watch db.json"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,7 @@
     "cordova-plugin-googleplus": "^8.5.2",
     "core-js": "^3.21.1",
     "firebase": "9.6.7",
+    "json-server": "^0.17.0",
     "moment": "^2.29.1",
     "rxfire": "^6.0.3",
     "rxjs": "^6.6.7",
