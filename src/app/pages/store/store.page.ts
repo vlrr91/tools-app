@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OptionsPopover } from '../options-popover/options-popover';
-import { PopoverController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 
 import { DataStorageService } from 'src/app/shared/services/data-storage.service';
@@ -24,11 +24,12 @@ export class StorePage implements OnInit {
     private dataStorageService: DataStorageService,
     private storeService: StoreService,
     private router: ActivatedRoute,
+    private navCtrl: NavController,
   ) { }
 
   async ngOnInit() {
     const id = this.router.snapshot.paramMap.get('id');
-    
+
     if (id) {
       this.storeOwner = false;
       this.storeService.getStore(id).subscribe(
@@ -66,5 +67,9 @@ export class StorePage implements OnInit {
     });
     await popover.present();
   }
+
+  goToFormStore() {
+    this.navCtrl.navigateForward(`/form-store`);
+  } 
 
 }

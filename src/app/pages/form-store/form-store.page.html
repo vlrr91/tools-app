@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Crear tienda</ion-title>
+    <ion-title>{{ this.store ? 'Editar tienda' : 'Crear tienda'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -80,7 +80,7 @@
           class="form-store-btn ion-margin-top"
           (click)="createStore()" 
           expand="block" 
-          fill="outline">Crear tienda</ion-button>
+          fill="outline">{{ this.store ? 'Editar tienda' : 'Crear tienda'}}</ion-button>
       </form>
     </div>
   </div>

@@ -8,8 +8,8 @@ import { StoreService } from 'src/app/shared/services/store.service';
 import { Store } from 'src/app/interfaces/store';
 import { User } from 'src/app/interfaces/user';
 import { Product } from 'src/app/interfaces/products';
-import { Observable } from 'rxjs';
-import { NitValidatorService } from './nitValidator';
+// import { Observable } from 'rxjs';
+// import { NitValidatorService } from './nitValidator';
 
 @Component({
   selector: 'app-form-store',
@@ -21,23 +21,26 @@ export class FormStorePage implements OnInit {
   location: any;
   currentLatitude: number;
   currentLongitude: number;
+  store: Store | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
     private storeService: StoreService,
     private dataStorageService: DataStorageService,
-    private nitValidator: NitValidatorService,
-  ) {
-    this.buildForm();
-  }
+    // private nitValidator: NitValidatorService,
+  ) {}
 
   async ngOnInit() {
     try {
+      const store = await this.dataStorageService.getStore();
+      if (store) this.store = store;
+      this.buildForm();
+
       const location = await Geolocation.getCurrentPosition();
       const { latitude, longitude } = location.coords;
-      this.currentLatitude = latitude;
-      this.currentLongitude = longitude;
+      this.currentLatitude = this.store?.location[0] as number || latitude;
+      this.currentLongitude = this.store?.location[1] as number ||longitude;
     } catch(error) {
       this.currentLatitude = 4.6097102
       this.currentLongitude = -74.081749;
@@ -60,10 +63,12 @@ export class FormStorePage implements OnInit {
         photoURL: null,
         products: new Array<Product>(),
         location: [lat, lng],
-        address
+        address,
+        nit: this.nitField.value,
       }
 
       await this.storeService.saveStore(newStore)
+      await this.dataStorageService.saveStore(newStore);
       this.navCtrl.navigateRoot('/ally');
     } else {
       this.form.markAllAsTouched();
@@ -72,14 +77,14 @@ export class FormStorePage implements OnInit {
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: [this.store?.name || '', Validators.required],
       nit: [
-        '',
+        this.store?.nit || '',
         [Validators.required, Validators.min(100000), Validators.max(99999999999)],
-        [this.nitValidator.isValidNIT()]
+        // [this.nitValidator.isValidNIT()]
       ],
-      cellPhone: [''],
-      localPhone: ['']
+      cellPhone: [this.store?.cellPhone || ''],
+      localPhone: [this.store?.localPhone || '']
     });
   }
 

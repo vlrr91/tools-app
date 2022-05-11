@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Storage } from "@capacitor/storage";
+import { Store } from "src/app/interfaces/store";
 import { User } from 'src/app/interfaces/user';
 
 @Injectable({
@@ -37,6 +38,28 @@ export class DataStorageService {
       return texts;
     } catch(err) {
       console.error(`${DataStorageService.ERROR_TEXT}/setTextsApplication: ${err}`);
+    }
+  }
+
+  async getStore(): Promise<Store> {
+    try {
+      const data = await Storage.get({ key: 'store' });
+      const store = JSON.parse(data.value);
+      return store as Store;
+    } catch(err) {
+      console.error(`${DataStorageService.ERROR_TEXT}/getStore: ${err}`);
+    }
+  }
+
+  async saveStore(store: Store) {
+    try {
+      await Storage.set({
+        key: 'store',
+        value: JSON.stringify(store),
+      });
+      return store;
+    } catch(err) {
+      console.error(`${DataStorageService.ERROR_TEXT}/saveStore: ${err}`);
     }
   }
 }

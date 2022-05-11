@@ -10,4 +10,5 @@ export interface Store {
   photoURL?: string;
   products: Array<Product>;
   address: string;
+  nit: string;
 }
